@@ -7,7 +7,7 @@ package ru.job4j.calculate;
  * @author Александр Петренко (Lexer8@gmail.com)
  * @version 1.0
  */
-public class Calculate{
+public class Calculate {
 	
 	/**
 	 * Точка входа в программу.
@@ -15,7 +15,7 @@ public class Calculate{
 	 * @param args - аргументы из командной строки
 	 * в виде массива объектов String.
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		System.out.println("We will not use 'Hello, World!'");
 	}
 	
@@ -25,7 +25,7 @@ public class Calculate{
 	 * @param name Your name.
 	 * @return Echo plus your name.
 	 */
-	public String echo(String name){
+	public String echo(String name) {
 		return "Echo, echo, echo : " + name;
 	}
 }
