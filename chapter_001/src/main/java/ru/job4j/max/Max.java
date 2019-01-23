@@ -10,7 +10,7 @@ package ru.job4j.max;
 public class Max {
 
     /**
-     * This method determines the maximum.
+     * This method determines the maximum of two numbers.
      *
      * @param first  First number.
      * @param second Second number.
@@ -18,5 +18,16 @@ public class Max {
      */
     public int max(int first, int second) {
         return first > second ? first : second;
+    }
+
+    /**
+     * This method determines the maximum of three numbers.
+     * @param first  First number.
+     * @param second Second number.
+     * @param third Third number.
+     * @return Maximum number.
+     */
+    public int max(int first, int second, int third) {
+        return this.max(this.max(first, second), third);
     }
 }
