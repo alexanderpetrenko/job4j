@@ -7,7 +7,17 @@ import java.util.StringJoiner;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * Test for a pyramid painting.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class PaintTest {
+    /**
+     * Test fot the right half of a pyramid with height 4.
+     */
     @Test
     public void whenPyramid4Right() {
         Paint paint = new Paint();
@@ -25,6 +35,9 @@ public class PaintTest {
         );
     }
 
+    /**
+     * Test for the left side of a pyramid with heght 4.
+     */
     @Test
     public void whenPyramid4Left() {
         Paint paint = new Paint();
@@ -42,6 +55,9 @@ public class PaintTest {
         );
     }
 
+    /**
+     * Test for drawing the full pyramid with height 4.
+     */
     @Test
     public void whenPyramid4() {
         Paint paint = new Paint();
