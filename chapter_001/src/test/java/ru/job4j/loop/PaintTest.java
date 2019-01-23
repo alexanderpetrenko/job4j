@@ -36,7 +36,7 @@ public class PaintTest {
     }
 
     /**
-     * Test for the left side of a pyramid with heght 4.
+     * Test for the left side of a pyramid with height 4.
      */
     @Test
     public void whenPyramid4Left() {

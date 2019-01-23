@@ -1,5 +1,7 @@
 package ru.job4j.loop;
 
+import java.util.function.BiPredicate;
+
 /**
  * The {@code Paint} class is used for drawing a pyramid.
  *
@@ -17,21 +19,11 @@ public class Paint {
      * as a triangle in a {@code String} type.
      */
     public String rightTrl(int height) {
-        // Buffer for result
-        StringBuilder screen = new StringBuilder();
-        // Weight equals height
-        int weight = height;
-        for (int row = 0; row != height; row++) {
-            for (int column = 0; column != weight; column++) {
-                if (row >= column) {
-                    screen.append("^");
-                } else {
-                    screen.append(" ");
-                }
-            }
-            screen.append(System.lineSeparator());
-        }
-        return screen.toString();
+        return this.loopBy(
+                height,
+                height,
+                (row, column) -> row >= column
+        );
     }
 
     /**
@@ -43,19 +35,11 @@ public class Paint {
      * as a triangle in a {@code String} type.
      */
     public String leftTrl(int height) {
-        StringBuilder screen = new StringBuilder();
-        int weight = height;
-        for (int row = 0; row != height; row++) {
-            for (int column = 0; column != weight; column++) {
-                if (row >= weight - column - 1) {
-                    screen.append("^");
-                } else {
-                    screen.append(" ");
-                }
-            }
-            screen.append(System.lineSeparator());
-        }
-        return screen.toString();
+        return this.loopBy(
+                height,
+                height,
+                (row, column) -> row >= height - column - 1
+        );
     }
 
     /**
@@ -66,11 +50,25 @@ public class Paint {
      * as a triangle in a {@code String} type.
      */
     public String pyramid(int height) {
+        return this.loopBy(
+                height,
+                2 * height - 1,
+                (row, column) -> row >= height - column - 1 && row + height - 1 >= column
+        );
+    }
+
+    /**
+     * @param height  The height of a pyramid.
+     * @param weight  The weight of a pyramid.
+     * @param predict The tick condition.
+     * @return The schematic representation of a pyramid
+     * as a triangle in a {@code String} type.
+     */
+    private String loopBy(int height, int weight, BiPredicate<Integer, Integer> predict) {
         StringBuilder screen = new StringBuilder();
-        int weight = 2 * height - 1;
         for (int row = 0; row != height; row++) {
             for (int column = 0; column != weight; column++) {
-                if (row >= height - column - 1 && row + height - 1 >= column) {
+                if (predict.test(row, column)) {
                     screen.append("^");
                 } else {
                     screen.append(" ");
