@@ -17,11 +17,10 @@ public class Turn {
      * in reverse direction order.
      */
     public int[] back(int[] array) {
-        int end = array.length - 1;
-        for (int i = 0; i <= end / 2; i++) {
+        for (int i = 0; i < array.length / 2; i++) {
             int temp = array[i];
-            array[i] = array[end - i];
-            array[end - i] = temp;
+            array[i] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = temp;
         }
         return array;
     }
