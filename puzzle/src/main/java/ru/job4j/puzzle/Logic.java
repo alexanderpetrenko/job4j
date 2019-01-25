@@ -4,7 +4,7 @@ import ru.job4j.puzzle.firuges.Cell;
 import ru.job4j.puzzle.firuges.Figure;
 
 /**
- * //TODO add comments.
+ * Class {@code Logic} is used for managing the game.
  *
  * @author Petr Arsentev (parsentev@yandex.ru)
  * @version $Id$
@@ -69,6 +69,34 @@ public class Logic {
     public boolean isWin() {
         int[][] table = this.convert();
         boolean result = false;
+        for (int i = 0; i < table.length; i++) {
+            if (table[0][i] == 1) {
+                int countVeritcal = 1;
+                for (int j = 0; j < table.length - 1; j++) {
+                    if (table[j][i] != table[j + 1][i]) {
+                        break;
+                    }
+                    countVeritcal++;
+                }
+                if (countVeritcal == table.length) {
+                    result = true;
+                    break;
+                }
+            }
+            if (table[i][0] == 1) {
+                int countHorizontal = 1;
+                for (int j = 0; j < table.length - 1; j++) {
+                    if (table[i][j] != table[i][j + 1]) {
+                        break;
+                    }
+                    countHorizontal++;
+                }
+                if (countHorizontal == table.length) {
+                    result = true;
+                    break;
+                }
+            }
+        }
         return result;
     }
 
