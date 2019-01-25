@@ -63,7 +63,7 @@ public class MatrixCheckTest {
      * Elements in diagonal of matrix (2x2) are not the same.
      */
     @Test
-    public void whenData2On2NotMonoThenTrue() {
+    public void whenData2On2NotMonoThenFalse() {
         MatrixCheck check = new MatrixCheck();
         boolean[][] input = new boolean[][]{
                 {true, false},
