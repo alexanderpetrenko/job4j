@@ -37,12 +37,12 @@ public class Logic {
         return rst;
     }
 
-    public boolean isFree(Cell ... cells) {
+    public boolean isFree(Cell... cells) {
         boolean result = cells.length > 0;
         for (Cell cell : cells) {
             if (this.findBy(cell) != -1) {
-               result = false;
-               break;
+                result = false;
+                break;
             }
         }
         return result;
@@ -70,28 +70,14 @@ public class Logic {
         int[][] table = this.convert();
         boolean result = false;
         for (int i = 0; i < table.length; i++) {
-            if (table[0][i] == 1) {
-                int countVeritcal = 1;
+            if (table[0][i] == 1 || table[i][0] == 1) {
+                int count = 1;
                 for (int j = 0; j < table.length - 1; j++) {
-                    if (table[j][i] != table[j + 1][i]) {
-                        break;
+                    if ((table[j][i] == 1 && table[j + 1][i] == 1) || (table[i][j] == 1 && table[i][j + 1] == 1)) {
+                        count++;
                     }
-                    countVeritcal++;
                 }
-                if (countVeritcal == table.length) {
-                    result = true;
-                    break;
-                }
-            }
-            if (table[i][0] == 1) {
-                int countHorizontal = 1;
-                for (int j = 0; j < table.length - 1; j++) {
-                    if (table[i][j] != table[i][j + 1]) {
-                        break;
-                    }
-                    countHorizontal++;
-                }
-                if (countHorizontal == table.length) {
+                if (count == table.length) {
                     result = true;
                     break;
                 }
