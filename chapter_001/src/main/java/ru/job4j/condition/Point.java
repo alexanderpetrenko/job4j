@@ -47,17 +47,12 @@ public class Point {
      *             of String objects.
      */
     public static void main(String[] args) {
-        // Points initialization.
         Point a = new Point(0, 1);
         Point b = new Point(2, 5);
-
-        // Initial data output.
         System.out.println("x1 = " + a.x);
         System.out.println("y1 = " + a.y);
         System.out.println("x2 = " + b.x);
         System.out.println("y2 = " + b.y);
-
-        // Method call.
         double result = a.distanceTo(b);
         System.out.println("Distance = " + result);
     }
