@@ -3,14 +3,14 @@ package ru.job4j.tracker;
 public class Item {
     private String id;
     private String name;
-    private String desc;
+    private String description;
     private long created;
     private String[] comments;
 
-    public Item(String name, String desc, long created) {
+    public Item(String name, String description) {
         this.name = name;
-        this.desc = desc;
-        this.created = created;
+        this.description = description;
+        this.created = System.currentTimeMillis();
     }
 
     public void setId(String id) {
