@@ -24,4 +24,8 @@ public class Item {
     public String getName() {
         return this.name;
     }
+
+    public long getCreated() {
+        return this.created;
+    }
 }

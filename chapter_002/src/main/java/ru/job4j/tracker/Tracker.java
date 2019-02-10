@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 /**
@@ -27,7 +26,7 @@ public class Tracker {
      * @return A new bid item.
      */
     public Item add(Item item) {
-        item.setId(this.generateId());
+        item.setId(this.generateId(item.getCreated()));
         this.items[this.position++] = item;
         return item;
     }
@@ -44,7 +43,9 @@ public class Tracker {
         for (int i = 0; i < this.position; i++) {
             if (this.items[i].getId().equals(id)) {
                 this.items[i] = item;
+                this.items[i].setId(id);
                 result = true;
+                break;
             }
         }
         return result;
@@ -118,7 +119,7 @@ public class Tracker {
      *
      * @return A unique key.
      */
-    public String generateId() {
-        return LocalDateTime.now().toString() + Math.random();
+    public String generateId(long created) {
+        return String.valueOf(created + Math.random());
     }
 }
