@@ -1,5 +1,12 @@
 package ru.job4j.tracker;
 
+/**
+ * The {@code StartUI} realizes the user's interface.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version 1.0
+ * @since 1.0
+ */
 public class StartUI {
     /**
      * Menu's constant for adding a new bid.
@@ -58,41 +65,127 @@ public class StartUI {
             this.showMenu();
             String answer = this.input.ask("Введите пункт меню: ");
             switch (answer) {
-                case ADD: {
+                case ADD:
                     this.createItem();
                     break;
-                }
-                case SHOW: {
-
-                }
-                case EDIT: {
-
-                }
-                case DELETE: {
-
-                }
-                case FINDID:{
-
-                }
-                case FINDNAME:{
-
-                }
-                case EXIT: {
+                case SHOW:
+                    this.showAllItems();
+                    break;
+                case EDIT:
+                    this.editItem();
+                    break;
+                case DELETE:
+                    this.deleteItem();
+                    break;
+                case FINDID:
+                    this.findItemById();
+                    break;
+                case FINDNAME:
+                    this.findItemByName();
+                    break;
+                case EXIT:
                     exit = true;
-                }
                 default:
             }
         }
     }
 
-    private void createItem() {
-        System.out.println("------------ Добавление новой заявки --------------");
-        String name = this.input.ask("Введите имя заявки: ");
-        String description = this.input.ask("Введите описание заявки: ");
+    /**
+     * This method shows user's menu.
+     */
+    private void showMenu() {
+        System.out.println("Меню:");
+        System.out.println("0 - добавить новую заявку");
+        System.out.println("1 - показать все заявки");
+        System.out.println("2 - редактировать заявку");
+        System.out.println("3 - удалить заявку");
+        System.out.println("4 - поиск заявки по Id");
+        System.out.println("5 - поиск заявки по названию");
+        System.out.println("6 - выход");
     }
 
-    private void showMenu() {
+    /**
+     * The method provides adding a new bid to a storage array.
+     */
+    private void createItem() {
+        System.out.println("------------ Добавление новой заявки --------------");
+        String name = this.input.ask("Введите название заявки: ");
+        String description = this.input.ask("Введите описание заявки: ");
+        Item item = new Item(name, description);
+        this.tracker.add(item);
+        System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
+    }
 
+    /**
+     * The method realizes an output of all bids from the repository.
+     */
+    private void showAllItems() {
+        System.out.println("------------ Вывод всех заявок --------------------");
+        Item[] items = this.tracker.findAll();
+        for (Item item : items) {
+            System.out.println(item.toString());
+        }
+        System.out.println("------------ Вывод всех заявок окончен ------------");
+    }
+
+    /**
+     * The method realizes an editing of a bid Item using its Id.
+     */
+    private void editItem() {
+        System.out.println("------------ Редактирование заявки ----------------");
+        String id = this.input.ask("Введите Id заявки для редактирования: ");
+        String name = this.input.ask("Введите новое название заявки: ");
+        String description = this.input.ask("Введите новое описание заявки: ");
+        Item newItem = new Item(name, description);
+        if (this.tracker.replace(id, newItem)) {
+            System.out.println("------------ Заявка с getId " + newItem.getId() + " отредактирована -----------");
+        } else {
+            System.out.println("------------ Операция отклонена! Заявка не найдена ----");
+        }
+    }
+
+    /**
+     * The method realizes a deleting of a bid Item using its Id.
+     */
+    private void deleteItem() {
+        System.out.println("------------ Удаление заявки ----------------------");
+        String id = this.input.ask("Введите Id заявки: ");
+        if (this.tracker.delete(id)) {
+            System.out.println("------------ Заявка удалена успешно -------------------");
+        } else {
+            System.out.println("------------ Операция отклонена! Заявка не найдена ----");
+        }
+    }
+
+    /**
+     * The method implements search a bid Item by Id.
+     */
+    private void findItemById() {
+        System.out.println("------------ Поиск заявки по Id -------------------");
+        String id = this.input.ask("Введите Id заявки: ");
+        Item item = this.tracker.findById(id);
+        if (item != null) {
+            System.out.println(item.toString());
+        } else {
+            System.out.println("------------ Заявка " + id + " не найдена -------------");
+        }
+    }
+
+    /**
+     * The method implements search a bid Item by its Name.
+     */
+    private void findItemByName() {
+        System.out.println("------------ Поиск заявки по названию ---------------");
+        String name = this.input.ask("Введите название заявки: ");
+        Item[] foundItems = this.tracker.findByName(name);
+        if (foundItems.length == 0) {
+            System.out.println("------------ Заявки не найдены ------------------------");
+        } else {
+            for (Item item : foundItems) {
+                System.out.println(item.toString());
+            }
+        }
+        System.out.println("------------ Вывод найденных заявок окончен ---------------");
     }
 
     /**
