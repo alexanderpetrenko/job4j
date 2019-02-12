@@ -17,13 +17,28 @@ import static org.junit.Assert.assertThat;
  */
 public class PaintTest {
     /**
+     * Default output in console.
+     */
+    private final PrintStream stdout = System.out;
+    /**
+     * Buffer for result.
+     */
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    public void loadOutput() {
+        System.setOut(new PrintStream(out));
+    }
+
+    public void backOutput() {
+        System.setOut(this.stdout);
+    }
+
+    /**
      * Test of drawing a square.
      */
     @Test
     public void whenDrawSquare() {
-        PrintStream stdout = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
+        this.loadOutput();
         new Paint().draw(new Square());
         String ls = System.lineSeparator();
         assertThat(
@@ -38,7 +53,7 @@ public class PaintTest {
                                 .toString()
                 )
         );
-        System.setOut(stdout);
+        this.backOutput();
     }
 
     /**
@@ -46,9 +61,7 @@ public class PaintTest {
      */
     @Test
     public void whenDrawTriangle() {
-        PrintStream stdout = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
+        this.loadOutput();
         new Paint().draw(new Triangle());
         String ls = System.lineSeparator();
         assertThat(
@@ -63,6 +76,6 @@ public class PaintTest {
                                 .toString()
                 )
         );
-        System.setOut(stdout);
+        this.backOutput();
     }
 }
