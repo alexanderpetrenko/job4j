@@ -1,5 +1,7 @@
 package ru.job4j.pseudo;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -25,10 +27,12 @@ public class PaintTest {
      */
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
+    @Before
     public void loadOutput() {
         System.setOut(new PrintStream(out));
     }
 
+    @After
     public void backOutput() {
         System.setOut(this.stdout);
     }
@@ -38,7 +42,6 @@ public class PaintTest {
      */
     @Test
     public void whenDrawSquare() {
-        this.loadOutput();
         new Paint().draw(new Square());
         String ls = System.lineSeparator();
         assertThat(
@@ -53,7 +56,6 @@ public class PaintTest {
                                 .toString()
                 )
         );
-        this.backOutput();
     }
 
     /**
@@ -61,7 +63,6 @@ public class PaintTest {
      */
     @Test
     public void whenDrawTriangle() {
-        this.loadOutput();
         new Paint().draw(new Triangle());
         String ls = System.lineSeparator();
         assertThat(
@@ -76,6 +77,5 @@ public class PaintTest {
                                 .toString()
                 )
         );
-        this.backOutput();
     }
 }
