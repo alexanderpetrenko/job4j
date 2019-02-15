@@ -27,6 +27,10 @@ public class Item {
         return this.name;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public long getCreated() {
         return this.created;
     }
