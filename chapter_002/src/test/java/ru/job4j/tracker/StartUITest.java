@@ -50,13 +50,13 @@ public class StartUITest {
      */
     public final String getMenu() {
         return new StringBuilder().append("Меню:")
-                .append(LS).append("0 - добавить новую заявку")
-                .append(LS).append("1 - показать все заявки")
-                .append(LS).append("2 - редактировать заявку")
-                .append(LS).append("3 - удалить заявку")
-                .append(LS).append("4 - поиск заявки по Id")
-                .append(LS).append("5 - поиск заявки по названию")
-                .append(LS).append("6 - выход").append(LS).toString();
+                .append(LS).append("0 - Добавить новую заявку")
+                .append(LS).append("1 - Показать все заявки")
+                .append(LS).append("2 - Редактировать заявку")
+                .append(LS).append("3 - Удалить заявку")
+                .append(LS).append("4 - Поиск заявки по Id")
+                .append(LS).append("5 - Поиск заявки по названию")
+                .append(LS).toString();
     }
 
     /**
@@ -65,7 +65,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[]{"0", "test name", "description", "6"});
+        Input input = new StubInput(new String[]{"0", "test name", "description", "y"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("test name"));
     }
@@ -78,7 +78,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item1 = tracker.add(new Item("Bid 1", "Test Item 1"));
         Item item2 = tracker.add(new Item("Bid 2", "Test Item 2"));
-        Input input = new StubInput(new String[]{"1", "6"});
+        Input input = new StubInput(new String[]{"1", "y"});
         this.loadOutput();
         new StartUI(input, tracker).init();
         Item[] items = tracker.findAll();
@@ -87,8 +87,7 @@ public class StartUITest {
                 .append("------------ Вывод всех заявок --------------------").append(LS)
                 .append(item1.toString()).append(LS)
                 .append(item2.toString()).append(LS)
-                .append("------------ Вывод всех заявок окончен ------------").append(LS)
-                .append(this.getMenu());
+                .append("------------ Вывод всех заявок окончен ------------").append(LS);
         assertThat(this.out.toString(), is(result.toString()));
         this.backOutput();
     }
@@ -100,7 +99,7 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "description"));
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
+        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "y"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
     }
@@ -112,7 +111,7 @@ public class StartUITest {
     public void whenDeleteItemThenTrackerDoesNotFindItemById() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Delete Test", "Testing the Delete operation"));
-        Input input = new StubInput(new String[]{"3", item.getId(), "6"});
+        Input input = new StubInput(new String[]{"3", item.getId(), "y"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()), is((Item) null));
     }
@@ -124,14 +123,13 @@ public class StartUITest {
     public void whenUserSearchExistedItemByIdThenTrackerReturnItem() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Find By Id Item", "Search by Id operation"));
-        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
+        Input input = new StubInput(new String[]{"4", item.getId(), "y"});
         this.loadOutput();
         new StartUI(input, tracker).init();
         StringBuilder result = new StringBuilder();
         result.append(this.getMenu())
                 .append("------------ Поиск заявки по Id -------------------").append(LS)
-                .append(item.toString()).append(LS)
-                .append(this.getMenu());
+                .append(item.toString()).append(LS);
         assertThat(this.out.toString(), is(result.toString()));
         this.backOutput();
     }
@@ -143,14 +141,13 @@ public class StartUITest {
     public void whenUserSearchNonexistentItemByIdThenTrackerReturnMessage() {
         Tracker tracker = new Tracker();
         String id = new String("123");
-        Input input = new StubInput(new String[]{"4", id, "6"});
+        Input input = new StubInput(new String[]{"4", id, "y"});
         this.loadOutput();
         new StartUI(input, tracker).init();
         StringBuilder result = new StringBuilder();
         result.append(this.getMenu())
                 .append("------------ Поиск заявки по Id -------------------").append(LS)
-                .append("------------ Заявка ").append(id).append(" не найдена -------------").append(LS)
-                .append(this.getMenu());
+                .append("------------ Заявка ").append(id).append(" не найдена -------------").append(LS);
         assertThat(this.out.toString(), is(result.toString()));
         this.backOutput();
     }
@@ -163,15 +160,14 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         String itemName = new String("testItem");
         Item item = tracker.add(new Item(itemName, "Search by Name operation"));
-        Input input = new StubInput(new String[]{"5", itemName, "6"});
+        Input input = new StubInput(new String[]{"5", itemName, "y"});
         this.loadOutput();
         new StartUI(input, tracker).init();
         StringBuilder result = new StringBuilder();
         result.append(this.getMenu())
                 .append("------------ Поиск заявки по названию ---------------").append(LS)
                 .append(item.toString()).append(LS)
-                .append("------------ Вывод найденных заявок окончен ---------------").append(LS)
-                .append(this.getMenu());
+                .append("------------ Вывод найденных заявок окончен ---------------").append(LS);
         assertThat(this.out.toString(), is(result.toString()));
         this.backOutput();
     }
@@ -183,15 +179,14 @@ public class StartUITest {
     public void whenUserSearchNonexistentItemByNameThenTrackerReturnMessage() {
         Tracker tracker = new Tracker();
         String itemName = new String("testItem");
-        Input input = new StubInput(new String[]{"5", itemName, "6"});
+        Input input = new StubInput(new String[]{"5", itemName, "y"});
         this.loadOutput();
         new StartUI(input, tracker).init();
         StringBuilder result = new StringBuilder();
         result.append(this.getMenu())
                 .append("------------ Поиск заявки по названию ---------------").append(LS)
                 .append("------------ Заявки не найдены ------------------------").append(LS)
-                .append("------------ Вывод найденных заявок окончен ---------------").append(LS)
-                .append(this.getMenu());
+                .append("------------ Вывод найденных заявок окончен ---------------").append(LS);
         assertThat(this.out.toString(), is(result.toString()));
         this.backOutput();
     }

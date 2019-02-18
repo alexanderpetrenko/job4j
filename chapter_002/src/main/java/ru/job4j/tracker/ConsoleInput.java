@@ -24,6 +24,13 @@ public class ConsoleInput implements Input {
         return this.scanner.nextLine();
     }
 
+    /**
+     * This method displays the question and accepts an entered answer.
+     *
+     * @param question Question for user.
+     * @param range A menu range Items.
+     * @return User's answer.
+     */
     public int ask(String question, List<Integer> range) {
         int key = Integer.valueOf(this.ask(question));
         boolean exist = false;

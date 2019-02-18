@@ -39,8 +39,26 @@ public class StubInput implements Input {
         return this.value[this.position++];
     }
 
+    /**
+     * The method imitates a user behavior.
+     *
+     * @param question Question from program.
+     * @param range    Menu's Items range.
+     * @return A user answer from the array of user responses.
+     */
     public int ask(String question, List<Integer> range) {
-//        throw new UnsupportedOperationException("Unsupported operation");
-        return Integer.valueOf(this.ask(question));
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int value : range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range.");
+        }
     }
 }
