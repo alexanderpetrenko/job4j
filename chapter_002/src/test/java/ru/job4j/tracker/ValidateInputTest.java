@@ -54,4 +54,20 @@ public class ValidateInputTest {
                 )
         );
     }
+
+    @Test
+    public void whenInputOutOfMenuRange() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[]{"12", "1"})
+        );
+        List<Integer> range = new ArrayList<>();
+        range.add(1);
+        input.ask("Enter", range);
+        assertThat(
+                this.mem.toString(),
+                is(
+                        String.format("Пожалуйста, выберите номер пункта меню.%n")
+                )
+        );
+    }
 }
