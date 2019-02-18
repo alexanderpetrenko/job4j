@@ -53,6 +53,10 @@ public class MenuTracker {
         this.actions[FINDNAME] = new FindItemByName();
     }
 
+    public int getActionsLength() {
+        return this.actions.length;
+    }
+
     /**
      * The method performs the appropriate action depending on the specified key.
      *

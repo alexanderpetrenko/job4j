@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The {@code StartUI} realizes the user's interface.
  *
@@ -33,10 +36,14 @@ public class StartUI {
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        List<Integer> range = new ArrayList<>();
         menu.fillActions();
+        for (int i = 0; i < menu.getActionsLength(); i++) {
+            range.add(i);
+        }
         do {
             menu.show();
-            menu.select(Integer.valueOf(input.ask("Выбор действия: ")));
+            menu.select(input.ask("Выбор действия: ", range));
         } while (!"y".equals(this.input.ask("Выйти? (y): ")));
     }
 
@@ -46,6 +53,6 @@ public class StartUI {
      * @param args Command line arguments as an array of String objects.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
