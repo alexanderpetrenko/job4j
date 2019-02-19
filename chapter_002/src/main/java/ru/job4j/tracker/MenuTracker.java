@@ -45,12 +45,12 @@ public class MenuTracker {
      * This method fills an array with user's actions.
      */
     public void fillActions() {
-        this.actions[ADD] = new CreateItem();
-        this.actions[SHOW] = new ShowAllItems();
-        this.actions[EDIT] = new EditItem();
-        this.actions[DELETE] = new DeleteItem();
-        this.actions[FINDID] = new FindItemById();
-        this.actions[FINDNAME] = new FindItemByName();
+        this.actions[ADD] = new CreateItem(ADD, "Добавить новую заявку");
+        this.actions[SHOW] = new ShowAllItems(SHOW, "Показать все заявки");
+        this.actions[EDIT] = new EditItem(EDIT, "Редактировать заявку");
+        this.actions[DELETE] = new DeleteItem(DELETE, "Удалить заявку");
+        this.actions[FINDID] = new FindItemById(FINDID, "Поиск заявки по Id");
+        this.actions[FINDNAME] = new FindItemByName(FINDNAME, "Поиск заявки по названию");
     }
 
     public int getActionsLength() {
@@ -79,10 +79,10 @@ public class MenuTracker {
     /**
      * The {@code CreateItem} class implements adding a new bid to the repository.
      */
-    private class CreateItem implements UserAction {
-        @Override
-        public int key() {
-            return MenuTracker.ADD;
+    private class CreateItem extends BaseAction {
+
+        public CreateItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -96,20 +96,15 @@ public class MenuTracker {
             System.out.println("----- Новая заявка с названием : " + item.getName() + "-----------");
             System.out.println("----- Новая заявка с описанием : " + item.getDescription() + "-----------");
         }
-
-        @Override
-        public String info() {
-            return String.format("%s - %s", this.key(), "Добавить новую заявку");
-        }
     }
 
     /**
      * The {@code ShowAllItems} class outputs all bid Items from the repository.
      */
-    private class ShowAllItems implements UserAction {
-        @Override
-        public int key() {
-            return MenuTracker.SHOW;
+    private class ShowAllItems extends BaseAction {
+
+        public ShowAllItems(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -121,20 +116,15 @@ public class MenuTracker {
             }
             System.out.println("------------ Вывод всех заявок окончен ------------");
         }
-
-        @Override
-        public String info() {
-            return String.format("%s - %s", this.key(), "Показать все заявки");
-        }
     }
 
     /**
      * The {@code EditItem} class implements editing an existing bid Item.
      */
-    private class EditItem implements UserAction {
-        @Override
-        public int key() {
-            return MenuTracker.EDIT;
+    private class EditItem extends BaseAction {
+
+        public EditItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -152,20 +142,15 @@ public class MenuTracker {
                 System.out.println("------------ Операция отклонена! Заявка не найдена ----");
             }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s - %s", this.key(), "Редактировать заявку");
-        }
     }
 
     /**
      * The {@code DeleteItem} class implements delete operation of the existing bid from the repository.
      */
-    private class DeleteItem implements UserAction {
-        @Override
-        public int key() {
-            return MenuTracker.DELETE;
+    private class DeleteItem extends BaseAction {
+
+        public DeleteItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -178,20 +163,15 @@ public class MenuTracker {
                 System.out.println("------------ Операция отклонена! Заявка не найдена ----");
             }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s - %s", this.key(), "Удалить заявку");
-        }
     }
 
     /**
      * The {@code FindItemById} class implements search a bid Item by Id.
      */
-    private class FindItemById implements UserAction {
-        @Override
-        public int key() {
-            return MenuTracker.FINDID;
+    private class FindItemById extends BaseAction {
+
+        public FindItemById(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -205,20 +185,15 @@ public class MenuTracker {
                 System.out.println("------------ Заявка " + id + " не найдена -------------");
             }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s - %s", this.key(), "Поиск заявки по Id");
-        }
     }
 
     /**
      * The {@code FindItemById} class implements search a bid Item by its Name.
      */
-    private class FindItemByName implements UserAction {
-        @Override
-        public int key() {
-            return MenuTracker.FINDNAME;
+    private class FindItemByName extends BaseAction {
+
+        public FindItemByName(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -234,11 +209,6 @@ public class MenuTracker {
                 }
             }
             System.out.println("------------ Вывод найденных заявок окончен ---------------");
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s - %s", this.key(), "Поиск заявки по названию");
         }
     }
 }
