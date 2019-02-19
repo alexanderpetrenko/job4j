@@ -19,6 +19,11 @@ public class StartUI {
      * The storage of bids.
      */
     private final Tracker tracker;
+    /**
+     * Exit flag.
+     * The program is working while the flag is {@code true}.
+     */
+    private boolean working = true;
 
     /**
      * The class constructor which initialized class fields.
@@ -37,14 +42,18 @@ public class StartUI {
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         List<Integer> range = new ArrayList<>();
-        menu.fillActions();
+        menu.fillActions(this);
         for (int i = 0; i < menu.getActionsLength(); i++) {
             range.add(i);
         }
         do {
             menu.show();
             menu.select(input.ask("Выбор действия: ", range));
-        } while (!"y".equals(this.input.ask("Выйти? (y): ")));
+        } while (this.working);
+    }
+
+    public void stop() {
+        this.working = false;
     }
 
     /**

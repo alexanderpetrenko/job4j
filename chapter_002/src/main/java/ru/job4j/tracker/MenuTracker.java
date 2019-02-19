@@ -25,10 +25,11 @@ public class MenuTracker {
     private static final int DELETE = 3;
     private static final int FINDID = 4;
     private static final int FINDNAME = 5;
+    private static final int EXIT = 6;
     /**
      * Array of user's actions.
      */
-    private UserAction[] actions = new UserAction[6];
+    private UserAction[] actions = new UserAction[7];
 
     /**
      * The class constructor.
@@ -44,13 +45,14 @@ public class MenuTracker {
     /**
      * This method fills an array with user's actions.
      */
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions[ADD] = new CreateItem(ADD, "Добавить новую заявку");
         this.actions[SHOW] = new ShowAllItems(SHOW, "Показать все заявки");
         this.actions[EDIT] = new EditItem(EDIT, "Редактировать заявку");
         this.actions[DELETE] = new DeleteItem(DELETE, "Удалить заявку");
         this.actions[FINDID] = new FindItemById(FINDID, "Поиск заявки по Id");
         this.actions[FINDNAME] = new FindItemByName(FINDNAME, "Поиск заявки по названию");
+        this.actions[EXIT] = new Exit(EXIT, "Выход", ui);
     }
 
     public int getActionsLength() {
@@ -209,6 +211,21 @@ public class MenuTracker {
                 }
             }
             System.out.println("------------ Вывод найденных заявок окончен ---------------");
+        }
+    }
+
+    private class Exit extends BaseAction {
+        private final StartUI ui;
+
+        public Exit(int key, String name, StartUI ui) {
+            super(key, name);
+            this.ui = ui;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            System.out.println("------------------------ Выход ---------------------------");
+            this.ui.stop();
         }
     }
 }
