@@ -12,6 +12,14 @@ public interface Figure {
 
     }
 
+    default boolean isDiagonal(Cell source, Cell dest) {
+        boolean rst = false;
+        if (Math.abs(dest.x - source.x) == Math.abs(dest.y - source.y)) {
+            rst = true;
+        }
+        return rst;
+    }
+
     Figure copy(Cell dest);
 
 }
