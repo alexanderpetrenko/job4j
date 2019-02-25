@@ -18,16 +18,15 @@ public abstract class Bishop implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        if (isDiagonal(source, dest)) {
-            Cell[] steps = new Cell[Math.abs(dest.x - source.x)];
-            int deltaX = dest.x > source.x ? 1 : -1;
-            int deltaY = dest.y > source.y ? 1 : -1;
-            for (int i = 0; i < steps.length; i++) {
-                steps[i] = Cell.findByCoord(source.x + deltaX * (i + 1), source.y + deltaY * (i + 1));
-            }
-            return steps;
-        } else {
+        if (!isDiagonal(source, dest)) {
             throw new ImpossibleMoveException("This move is impossible for the Bishop Figure");
         }
+        Cell[] steps = new Cell[Math.abs(dest.x - source.x)];
+        int deltaX = dest.x > source.x ? 1 : -1;
+        int deltaY = dest.y > source.y ? 1 : -1;
+        for (int i = 0; i < steps.length; i++) {
+            steps[i] = Cell.findByCoord(source.x + deltaX * (i + 1), source.y + deltaY * (i + 1));
+        }
+        return steps;
     }
 }
