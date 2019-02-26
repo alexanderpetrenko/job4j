@@ -1,5 +1,12 @@
 package ru.job4j.search;
 
+/**
+ * The {@code Person} class describes a person from Phone Dictionary.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version 1.0
+ * @since 1.0
+ */
 public class Person {
     private String name;
     private String surname;
