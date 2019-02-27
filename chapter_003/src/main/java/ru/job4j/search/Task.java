@@ -1,5 +1,12 @@
 package ru.job4j.search;
 
+/**
+ * The {@code Task} class describes a Task with priority.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version 1.0
+ * @since 1.0
+ */
 public class Task {
     private String description;
     private int priority;
