@@ -7,6 +7,13 @@ import java.util.Arrays;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * The Testing class for the {@code ConvertList2Array} class.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version 1.0
+ * @since 1.0
+ */
 public class ConvertList2ArrayTest {
     @Test
     public void when7ElementsThen9() {
