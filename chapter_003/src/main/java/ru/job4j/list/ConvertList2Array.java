@@ -1,5 +1,7 @@
 package ru.job4j.list;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,5 +27,22 @@ public class ConvertList2Array {
             }
         }
         return array;
+    }
+
+    /**
+     * The method converts List of arrays to the one Integer List.
+     *
+     * @param list Source List.
+     * @return One-dimensional List, that was obtained from two-dimensional.
+     */
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> result = new ArrayList<>();
+        Iterator<int[]> it = list.iterator();
+        while (it.hasNext()) {
+            for (int number : it.next()) {
+                result.add(number);
+            }
+        }
+        return result;
     }
 }
