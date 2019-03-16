@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * The {@code Tracker} class provides a storage of bids and operations with them.
@@ -13,11 +13,7 @@ public class Tracker {
     /**
      * List of items.
      */
-    private final Item[] items = new Item[100];
-    /**
-     * Next item index.
-     */
-    private int position = 0;
+    private ArrayList<Item> items = new ArrayList<>();
 
     /**
      * The method that implements adding a bid to the repository.
@@ -27,7 +23,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId(item.getCreated()));
-        this.items[this.position++] = item;
+        this.items.add(item);
         return item;
     }
 
@@ -40,10 +36,10 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                this.items[i] = item;
-                this.items[i].setId(id);
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(id)) {
+                this.items.set(i, item);
+                this.items.get(i).setId(id);
                 result = true;
                 break;
             }
@@ -59,11 +55,9 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                System.arraycopy(this.items, i + 1, this.items, i, this.position - 1 - i);
-                this.items[this.position - 1] = null;
-                this.position--;
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(id)) {
+                this.items.remove(i);
                 result = true;
                 break;
             }
@@ -76,8 +70,8 @@ public class Tracker {
      *
      * @return An array of bid Items.
      */
-    public Item[] findAll() {
-        return Arrays.copyOf(this.items, this.position);
+    public ArrayList<Item> findAll() {
+        return this.items;
     }
 
     /**
@@ -86,15 +80,14 @@ public class Tracker {
      * @param key Name of the bid Item.
      * @return An array of the found Items.
      */
-    public Item[] findByName(String key) {
-        Item[] result = new Item[this.position];
-        int j = 0;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getName().equals(key)) {
-                result[j++] = this.items[i];
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> result = new ArrayList<>();
+        for (Item item : items) {
+            if (item.getName().equals(key)) {
+                result.add(item);
             }
         }
-        return Arrays.copyOf(result, j);
+        return result;
     }
 
     /**
@@ -105,9 +98,9 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                result = this.items[i];
+        for (Item item : this.items) {
+            if (item.getId().equals(id)) {
+                result = item;
                 break;
             }
         }

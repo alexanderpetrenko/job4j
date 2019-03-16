@@ -32,6 +32,6 @@ public class TrackerSingleEnumTest {
         TrackerSingleEnum tracker = TrackerSingleEnum.INSTANCE;
         Item item = new Item("testBid", "Test Bid Description");
         tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
 }

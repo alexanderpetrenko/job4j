@@ -1,5 +1,9 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * The {@code MenuTracker} realizes the executing of user's operations.
  *
@@ -29,7 +33,7 @@ public class MenuTracker {
     /**
      * Array of user's actions.
      */
-    private UserAction[] actions = new UserAction[7];
+    private HashMap<Integer, BaseAction> actions = new HashMap<>();
 
     /**
      * The class constructor.
@@ -46,17 +50,17 @@ public class MenuTracker {
      * This method fills an array with user's actions.
      */
     public void fillActions(StartUI ui) {
-        this.actions[ADD] = new CreateItem(ADD, "Добавить новую заявку");
-        this.actions[SHOW] = new ShowAllItems(SHOW, "Показать все заявки");
-        this.actions[EDIT] = new EditItem(EDIT, "Редактировать заявку");
-        this.actions[DELETE] = new DeleteItem(DELETE, "Удалить заявку");
-        this.actions[FINDID] = new FindItemById(FINDID, "Поиск заявки по Id");
-        this.actions[FINDNAME] = new FindItemByName(FINDNAME, "Поиск заявки по названию");
-        this.actions[EXIT] = new Exit(EXIT, "Выход", ui);
+        this.actions.put(ADD, new CreateItem(ADD, "Добавить новую заявку"));
+        this.actions.put(SHOW, new ShowAllItems(SHOW, "Показать все заявки"));
+        this.actions.put(EDIT, new EditItem(EDIT, "Редактировать заявку"));
+        this.actions.put(DELETE, new DeleteItem(DELETE, "Удалить заявку"));
+        this.actions.put(FINDID, new FindItemById(FINDID, "Поиск заявки по Id"));
+        this.actions.put(FINDNAME, new FindItemByName(FINDNAME, "Поиск заявки по названию"));
+        this.actions.put(EXIT, new Exit(EXIT, "Выход", ui));
     }
 
     public int getActionsLength() {
-        return this.actions.length;
+        return this.actions.size();
     }
 
     /**
@@ -65,7 +69,7 @@ public class MenuTracker {
      * @param key An action key.
      */
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     /**
@@ -73,8 +77,8 @@ public class MenuTracker {
      */
     public void show() {
         System.out.println("Меню:");
-        for (UserAction action : this.actions) {
-            System.out.println(action.info());
+        for (Map.Entry<Integer, BaseAction> action : this.actions.entrySet()) {
+            System.out.println(action.getValue().info());
         }
     }
 
@@ -112,7 +116,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Вывод всех заявок --------------------");
-            Item[] items = tracker.findAll();
+            ArrayList<Item> items = tracker.findAll();
             for (Item item : items) {
                 System.out.println(item.toString());
             }
@@ -202,8 +206,8 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявки по названию ---------------");
             String name = input.ask("Введите название заявки: ");
-            Item[] foundItems = tracker.findByName(name);
-            if (foundItems.length == 0) {
+            ArrayList<Item> foundItems = tracker.findByName(name);
+            if (foundItems.size() == 0) {
                 System.out.println("------------ Заявки не найдены ------------------------");
             } else {
                 for (Item item : foundItems) {

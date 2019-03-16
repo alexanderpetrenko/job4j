@@ -3,6 +3,8 @@ package ru.job4j.tracker.singleton;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
+import java.util.ArrayList;
+
 /**
  * Singleton: enum. Eager loading.
  *
@@ -51,7 +53,7 @@ public enum TrackerSingleEnum {
      *
      * @return An array of bid Items.
      */
-    public Item[] findAll() {
+    public ArrayList<Item> findAll() {
         return TRACKER.findAll();
     }
 
@@ -61,7 +63,7 @@ public enum TrackerSingleEnum {
      * @param key Name of the bid Item.
      * @return An array of the found Items.
      */
-    public Item[] findByName(String key) {
+    public ArrayList<Item> findByName(String key) {
         return TRACKER.findByName(key);
     }
 
