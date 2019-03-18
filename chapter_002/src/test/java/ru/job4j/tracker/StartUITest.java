@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -83,7 +83,7 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"1", "6"});
         this.loadOutput();
         new StartUI(input, tracker).init();
-        ArrayList<Item> items = tracker.findAll();
+        List<Item> items = tracker.findAll();
         StringBuilder result = new StringBuilder();
         result.append(this.getMenu())
                 .append("------------ Вывод всех заявок --------------------").append(LS)

@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -116,7 +116,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Вывод всех заявок --------------------");
-            ArrayList<Item> items = tracker.findAll();
+            List<Item> items = tracker.findAll();
             for (Item item : items) {
                 System.out.println(item.toString());
             }
@@ -206,7 +206,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявки по названию ---------------");
             String name = input.ask("Введите название заявки: ");
-            ArrayList<Item> foundItems = tracker.findByName(name);
+            List<Item> foundItems = tracker.findByName(name);
             if (foundItems.size() == 0) {
                 System.out.println("------------ Заявки не найдены ------------------------");
             } else {

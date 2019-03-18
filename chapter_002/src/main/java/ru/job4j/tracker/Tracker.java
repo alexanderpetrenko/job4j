@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The {@code Tracker} class provides a storage of bids and operations with them.
@@ -13,7 +14,7 @@ public class Tracker {
     /**
      * List of items.
      */
-    private ArrayList<Item> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     /**
      * The method that implements adding a bid to the repository.
@@ -70,7 +71,7 @@ public class Tracker {
      *
      * @return An array of bid Items.
      */
-    public ArrayList<Item> findAll() {
+    public List<Item> findAll() {
         return this.items;
     }
 
@@ -80,7 +81,7 @@ public class Tracker {
      * @param key Name of the bid Item.
      * @return An array of the found Items.
      */
-    public ArrayList<Item> findByName(String key) {
+    public List<Item> findByName(String key) {
         ArrayList<Item> result = new ArrayList<>();
         for (Item item : items) {
             if (item.getName().equals(key)) {
