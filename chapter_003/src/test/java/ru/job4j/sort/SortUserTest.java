@@ -42,4 +42,60 @@ public class SortUserTest {
         Set<User> result = sorting.sort(users);
         assertThat(result, is(expected));
     }
+
+    /**
+     * Test for sorting operation of Users by the Length of their Name.
+     */
+    @Test
+    public void whenListThenSortByNameLength() {
+        List<User> users = new ArrayList<>();
+        users.addAll(
+                Arrays.asList(
+                        new User("stark", 35),
+                        new User("willis", 64),
+                        new User("bond", 50),
+                        new User("CJ", 60)
+                )
+        );
+        List<User> expected = new ArrayList<>();
+        expected.addAll(
+                Arrays.asList(
+                        new User("CJ", 60),
+                        new User("bond", 50),
+                        new User("stark", 35),
+                        new User("willis", 64)
+                )
+        );
+        SortUser sorting = new SortUser();
+        List<User> result = sorting.sortNameLength(users);
+        assertThat(result, is(expected));
+    }
+
+    /**
+     * Test for sorting operation of Users by their Names and then by their age.
+     */
+    @Test
+    public void whenListThenSortByAllFields() {
+        List<User> users = new ArrayList<>();
+        users.addAll(
+                Arrays.asList(
+                        new User("Сергей", 25),
+                        new User("Иван", 30),
+                        new User("Сергей", 20),
+                        new User("Иван", 25)
+                )
+        );
+        List<User> expected = new ArrayList<>();
+        expected.addAll(
+                Arrays.asList(
+                        new User("Иван", 25),
+                        new User("Иван", 30),
+                        new User("Сергей", 20),
+                        new User("Сергей", 25)
+                )
+        );
+        SortUser sorting = new SortUser();
+        List<User> result = sorting.sortByAllFields(users);
+        assertThat(result, is(expected));
+    }
 }
