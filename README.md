@@ -1,6 +1,9 @@
+[![Build Status](https://travis-ci.org/alexanderpetrenko/job4j.svg?branch=master)](https://travis-ci.org/alexanderpetrenko/job4j)
+[![codecov](https://codecov.io/gh/alexanderpetrenko/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/alexanderpetrenko/job4j)
+
 # Репозиторий Александра Петренко
 
-##### Добро пожаловать в мой репозиторий!
+#### Добро пожаловать в мой репозиторий!
 
 В данный момент я прохожу обучение по программированию на языке [Java](https://java.com/ru/download/).
 В этом репозитории будут располагаться решения задач курса [Job4j](https://job4j.ru/).
