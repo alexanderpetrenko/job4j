@@ -51,7 +51,7 @@ public class LogicTest {
         PawnBlack pawnBlack = new PawnBlack(Cell.E2);
         Logic logic = new Logic();
         logic.add(pawnBlack);
-        logic.move(Cell.E2, Cell.E3);
+        logic.move(Cell.E2, Cell.E1);
     }
 
     /**
@@ -62,7 +62,7 @@ public class LogicTest {
         PawnWhite pawnWhite = new PawnWhite(Cell.E7);
         Logic logic = new Logic();
         logic.add(pawnWhite);
-        logic.move(Cell.E7, Cell.E6);
+        logic.move(Cell.E7, Cell.E8);
     }
 
     /**
@@ -70,12 +70,12 @@ public class LogicTest {
      */
     @Test(expected = OccupiedWayException.class)
     public void whenWhitePawnMoveOnOccupiedCellThenOccupiedWayException() {
-        PawnWhite pawnWhite = new PawnWhite(Cell.E7);
-        PawnBlack pawnBlack = new PawnBlack(Cell.E6);
+        PawnWhite pawnWhite = new PawnWhite(Cell.E6);
+        PawnBlack pawnBlack = new PawnBlack(Cell.E7);
         Logic logic = new Logic();
         logic.add(pawnWhite);
         logic.add(pawnBlack);
-        logic.move(Cell.E7, Cell.E6);
+        logic.move(Cell.E6, Cell.E7);
     }
 
     /**
