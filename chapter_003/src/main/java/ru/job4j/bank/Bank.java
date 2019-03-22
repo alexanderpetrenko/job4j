@@ -46,4 +46,27 @@ public class Bank {
         }
         return found;
     }
+
+    private Account getAccountByRequisite(String requisite, List<Account> accounts) {
+        Account found = null;
+        for (Account account : accounts) {
+            if (account.getRequisites().equals(requisite)) {
+                found = account;
+                break;
+            }
+        }
+        return found;
+    }
+
+    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
+        boolean transferSuccess = false;
+        Account srcAccount = getAccountByRequisite(srcRequisite, getUserAccounts(srcPassport));
+        Account destAccount = getAccountByRequisite(destRequisite, getUserAccounts(destPassport));
+        if ( srcAccount != null && destAccount != null && srcAccount.getValue() >= amount) {
+            srcAccount.setValue(srcAccount.getValue() - amount);
+            destAccount.setValue(destAccount.getValue() + amount);
+            transferSuccess = true;
+        }
+        return transferSuccess;
+    }
 }
