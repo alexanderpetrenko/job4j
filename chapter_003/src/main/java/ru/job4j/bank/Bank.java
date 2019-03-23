@@ -68,7 +68,12 @@ public class Bank {
      * @return List of all banking accounts of the User.
      */
     public List<Account> getUserAccounts(String passport) {
-        return userAccounts.get(getUserByPassport(passport));
+        User user = getUserByPassport(passport);
+        List<Account> accounts = new ArrayList<>();
+        if (user != null) {
+            accounts = userAccounts.get(user);
+        }
+        return accounts;
     }
 
     /**
