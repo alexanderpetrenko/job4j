@@ -2,6 +2,13 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * The {@code User} class saves an information about user.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version 1.0
+ * @since 23.03.2019
+ */
 public class User {
     private String name;
     private final String passport;
