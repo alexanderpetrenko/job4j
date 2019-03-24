@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author Alexander Petrenko (Lexer8@gmail.com)
  * @version 1.0
- * @since 23.03.2019
+ * @since 24.03.2019
  */
 public class Bank {
     private final Map<User, List<Account>> userAccounts = new HashMap<>();
@@ -21,7 +21,7 @@ public class Bank {
      * @param user A user object.
      */
     public void addUser(User user) {
-        userAccounts.putIfAbsent(user, new ArrayList<>());
+        this.userAccounts.putIfAbsent(user, new ArrayList<>());
     }
 
     /**
@@ -30,7 +30,7 @@ public class Bank {
      * @param user A user object.
      */
     public void deleteUser(User user) {
-        userAccounts.remove(user);
+        this.userAccounts.remove(user);
     }
 
     /**
@@ -43,7 +43,7 @@ public class Bank {
         List<Account> accounts = getUserAccounts(passport);
         if (accounts.indexOf(account) == -1) {
             accounts.add(account);
-            userAccounts.put(getUserByPassport(passport), accounts);
+            this.userAccounts.put(getUserByPassport(passport), accounts);
         }
     }
 
@@ -57,7 +57,7 @@ public class Bank {
         List<Account> accounts = getUserAccounts(passport);
         if (accounts.indexOf(account) != -1) {
             accounts.remove(account);
-            userAccounts.put(getUserByPassport(passport), accounts);
+            this.userAccounts.put(getUserByPassport(passport), accounts);
         }
     }
 
@@ -71,7 +71,7 @@ public class Bank {
         User user = getUserByPassport(passport);
         List<Account> accounts = new ArrayList<>();
         if (user != null) {
-            accounts = userAccounts.get(user);
+            accounts = this.userAccounts.get(user);
         }
         return accounts;
     }
@@ -84,7 +84,7 @@ public class Bank {
      */
     private User getUserByPassport(String passport) {
         User found = null;
-        for (Map.Entry<User, List<Account>> entry : userAccounts.entrySet()) {
+        for (Map.Entry<User, List<Account>> entry : this.userAccounts.entrySet()) {
             if (entry.getKey().getPassport().equals(passport)) {
                 found = entry.getKey();
                 break;
@@ -122,15 +122,9 @@ public class Bank {
      * @return {@code true}, if operation is successful; otherwise - {@code false}.
      */
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
-        boolean transferSuccess = false;
         Account srcAccount = getAccountByRequisite(srcRequisite, getUserAccounts(srcPassport));
         Account destAccount = getAccountByRequisite(destRequisite, getUserAccounts(destPassport));
-        if (srcAccount != null && destAccount != null && srcAccount.getValue() >= amount) {
-            srcAccount.setValue(srcAccount.getValue() - amount);
-            destAccount.setValue(destAccount.getValue() + amount);
-            transferSuccess = true;
-        }
-        return transferSuccess;
+        return (srcAccount != null) && srcAccount.transfer(destAccount, amount);
     }
 
     /**
@@ -139,6 +133,6 @@ public class Bank {
      * @return List of all users and their accounts.
      */
     public Map<User, List<Account>> getAllAccounts() {
-        return userAccounts;
+        return this.userAccounts;
     }
 }

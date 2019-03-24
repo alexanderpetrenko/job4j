@@ -5,7 +5,7 @@ package ru.job4j.bank;
  *
  * @author Alexander Petrenko (Lexer8@gmail.com)
  * @version 1.0
- * @since 23.03.2019
+ * @since 24.03.2019
  */
 public class Account {
     private double value;
@@ -20,11 +20,17 @@ public class Account {
         return value;
     }
 
-    public void setValue(double value) {
-        this.value = value;
-    }
-
     public String getRequisites() {
         return requisites;
+    }
+
+    public boolean transfer(Account receiver, double amount) {
+        boolean success = false;
+        if (receiver != null && amount > 0 && amount <= this.value) {
+            this.value -= amount;
+            receiver.value += amount;
+            success = true;
+        }
+        return success;
     }
 }
