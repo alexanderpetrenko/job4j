@@ -1,46 +1,76 @@
 package ru.job4j.department;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * The {@code SortDepartment} class provides sorting operations.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version 1.0
+ * @since 30.03.2019
+ */
 public class SortDepartment {
-    public Set<Department> sortAscending(String[] codes) {
-        Set<Department> result = new TreeSet<>();
+    /**
+     * The method provides ascending sorting operation.
+     *
+     * @param codes Input Array of department codes.
+     * @return Sorted Array of department codes.
+     */
+    public String[] sortAscending(String[] codes) {
+        Set<String> result = new TreeSet<>(
+                new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        return o1.compareTo(o2);
+                    }
+                }
+        );
         for (String code : codes) {
-            Department mainDepartment = new Department(code.split("\\\\")[0]);
-            if (!result.contains(mainDepartment)) {
-                result.add(mainDepartment);
+            String[] departmentNames = code.split("\\\\");
+            StringBuilder department = new StringBuilder();
+            for (String departmentName : departmentNames) {
+                department.append(departmentName);
+                result.add(department.toString());
+                department.append("\\");
             }
-            result.add(new Department(code));
         }
-        return result;
+        return result.toArray(new String[0]);
     }
 
-    public Set<Department> sortDescending(String[] codes) {
-        return new TreeSet<Department>(this.sortAscending(codes)).descendingSet();
-    }
-
-
-    public static void main(String[] args) {
-        String[] codes = new String[] {
-                "K1\\SK1",
-                "K1\\SK2",
-                "K1\\SK2",
-                "K1\\SK1\\SSK1",
-                "K1\\SK1\\SSK2",
-                "K2",
-                "K2\\SK1\\SSK1",
-                "K2\\SK1\\SSK2"
-        };
-        SortDepartment departments = new SortDepartment();
-        Set<Department> result = departments.sortAscending(codes);
-        for (Department department : result) {
-            System.out.println(department.getCode());
+    /**
+     * The method provides descending sorting operation.
+     *
+     * @param codes Input Array of department codes.
+     * @return Sorted Array of department codes.
+     */
+    public String[] sortDescending(String[] codes) {
+        Set<String> result = new TreeSet<>(
+                new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        int lim = Math.min(o1.length(), o2.length());
+                        int k = 0;
+                        while (k < lim) {
+                            if (o2.toCharArray()[k] != o1.toCharArray()[k]) {
+                                return o2.toCharArray()[k] - o1.toCharArray()[k];
+                            }
+                            k++;
+                        }
+                        return o1.length() - o2.length();
+                    }
+                }
+        );
+        for (String code : codes) {
+            String[] departmentNames = code.split("\\\\");
+            StringBuilder department = new StringBuilder();
+            for (String departmentName : departmentNames) {
+                department.append(departmentName);
+                result.add(department.toString());
+                department.append("\\");
+            }
         }
-        System.out.println(" ");
-        Set<Department> result1 = departments.sortDescending(codes);
-        for (Department department : result1) {
-            System.out.println(department.getCode());
-        }
+        return result.toArray(new String[0]);
     }
 }
