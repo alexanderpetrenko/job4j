@@ -9,7 +9,18 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertThat;
 
+/**
+ * The {@code CalculatorTest} class provides testing of
+ * calculating mathematical function in a range using Lambda expression.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version 1.0
+ * @since 03.04.2019
+ */
 public class CalculatorTest {
+    /**
+     * Test for Linear Function.
+     */
     @Test
     public void whenLinearFunctionThenLinearResults() {
         Calculator calc = new Calculator();
@@ -18,6 +29,9 @@ public class CalculatorTest {
         assertThat(result, is(expected));
     }
 
+    /**
+     * Test for Quadratic Function.
+     */
     @Test
     public void whenQuadraticFunctionThenQuadraticResults() {
         Calculator calc = new Calculator();
@@ -26,6 +40,9 @@ public class CalculatorTest {
         assertThat(result, is(expected));
     }
 
+    /**
+     * Test for Logarithmic Function.
+     */
     @Test
     public void whenLogarithmicFunctionThenLogarithmicResults() {
         Calculator calc = new Calculator();
