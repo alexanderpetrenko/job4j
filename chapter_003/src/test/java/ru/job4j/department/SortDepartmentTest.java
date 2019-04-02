@@ -2,6 +2,9 @@ package ru.job4j.department;
 
 import org.junit.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -71,5 +74,20 @@ public class SortDepartmentTest {
         };
         SortDepartment departments = new SortDepartment();
         assertThat(departments.sortDescending(codes), is(expected));
+    }
+
+    /**
+     * Test for Adding absent senior Department's Names from String
+     * of junior Department's Name.
+     */
+    @Test
+    public void whenDepsNameThenAddAbsentDepsToList() {
+        SortDepartment departments = new SortDepartment();
+        String input = "k1\\sk1\\ssk1";
+        List<String> expected = new LinkedList<>();
+        expected.add("k1");
+        expected.add("k1\\sk1");
+        expected.add("k1\\sk1\\ssk1");
+        assertThat(departments.addAbsent(input), is(expected));
     }
 }

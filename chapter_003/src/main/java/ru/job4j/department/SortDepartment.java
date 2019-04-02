@@ -1,8 +1,6 @@
 package ru.job4j.department;
 
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * The {@code SortDepartment} class provides sorting operations.
@@ -28,13 +26,7 @@ public class SortDepartment {
                 }
         );
         for (String code : codes) {
-            String[] departmentNames = code.split("\\\\");
-            StringBuilder department = new StringBuilder();
-            for (String departmentName : departmentNames) {
-                department.append(departmentName);
-                result.add(department.toString());
-                department.append("\\");
-            }
+            result.addAll(addAbsent(code));
         }
         return result.toArray(new String[0]);
     }
@@ -63,14 +55,26 @@ public class SortDepartment {
                 }
         );
         for (String code : codes) {
-            String[] departmentNames = code.split("\\\\");
-            StringBuilder department = new StringBuilder();
-            for (String departmentName : departmentNames) {
-                department.append(departmentName);
-                result.add(department.toString());
-                department.append("\\");
-            }
+            result.addAll(addAbsent(code));
         }
         return result.toArray(new String[0]);
+    }
+
+    /**
+     * The method returns List of Department's Names,
+     *
+     * @param dep Input String with the Department's Name.
+     * @return List of Department's Names.
+     */
+    List<String> addAbsent(String dep) {
+        List<String> result = new LinkedList<>();
+        String[] depNames = dep.split("\\\\");
+        StringBuilder department = new StringBuilder();
+        for (String depName : depNames) {
+            department.append(depName);
+            result.add(department.toString());
+            department.append("\\");
+        }
+        return result;
     }
 }
