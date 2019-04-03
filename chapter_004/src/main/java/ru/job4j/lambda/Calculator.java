@@ -1,8 +1,9 @@
 package ru.job4j.lambda;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * The {@code Calculator} class calculates mathematical functions.
@@ -21,10 +22,13 @@ public class Calculator {
      * @return List of values of calculated function.
      */
     List<Double> diapason(int start, int end, Function<Double, Double> func) {
-        List<Double> result = new ArrayList<>();
-        for (int index = start; index != end; index++) {
-            result.add(func.apply((double) index));
-        }
-        return result;
+        return IntStream.range(start, end)
+                .mapToObj(idx -> func.apply((double) idx))
+                .collect(Collectors.toList());
+//        List<Double> result = new ArrayList<>();
+//        for (int index = start; index != end; index++) {
+//            result.add(func.apply((double) index));
+//        }
+//        return result;
     }
 }
