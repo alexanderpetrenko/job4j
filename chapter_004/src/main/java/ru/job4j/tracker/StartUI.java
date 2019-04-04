@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * The {@code StartUI} realizes the user's interface.
@@ -20,6 +21,10 @@ public class StartUI {
      */
     private final Tracker tracker;
     /**
+     * Functional interface Consumer.
+     */
+    private final Consumer<String> output;
+    /**
      * Exit flag.
      * The program is working while the flag is {@code true}.
      */
@@ -31,16 +36,17 @@ public class StartUI {
      * @param input   Data input.
      * @param tracker The bids storage.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
 
     /**
      * The main program loop
      */
     public void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker, this.output);
         List<Integer> range = new ArrayList<>();
         menu.fillActions(this);
         for (int i = 0; i < menu.getActionsLength(); i++) {
@@ -66,7 +72,8 @@ public class StartUI {
                 new ValidateInput(
                         new ConsoleInput()
                 ),
-                new Tracker()
+                new Tracker(),
+                System.out::println
         ).init();
     }
 }
