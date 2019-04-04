@@ -33,12 +33,12 @@ public class StartUITest {
         @Override
         public void accept(String s) {
             stdout.println(s);
-            printString = printString == null ? s : printString + "\r\n" + s;
+            printString = printString == null ? s : printString + LS + s;
         }
 
         @Override
         public String toString() {
-            return printString + "\r\n";
+            return printString + LS;
         }
     };
     /**
