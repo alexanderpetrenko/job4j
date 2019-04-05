@@ -1,7 +1,8 @@
 package ru.job4j.list;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The {@code ConvertList2Array} class provides converting operation
@@ -16,18 +17,15 @@ public class ConvertList2Array {
     public int[][] toArray(List<Integer> list, int rows) {
         int cells = list.size() / rows + (list.size() % rows == 0 ? 0 : 1);
         int[][] array = new int[rows][cells];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cells; j++) {
-//                array[i][j] = list.stream().forEach();
+        final int[] row = {0};
+        final int[] cell = {0};
+        list.forEach(x -> {
+            array[row[0]][cell[0]++] = x;
+            if (cell[0] == cells) {
+                cell[0] = 0;
+                row[0]++;
             }
-        }
-//        for (Integer integer : list) {
-//            array[i][j++] = integer;
-//            if (j == cells) {
-//                i++;
-//                j = 0;
-//            }
-//        }
+        });
         return array;
     }
 
@@ -38,13 +36,6 @@ public class ConvertList2Array {
      * @return One-dimensional List, that was obtained from two-dimensional.
      */
     public List<Integer> convert(List<int[]> list) {
-        List<Integer> result = new ArrayList<>();
-//        Iterator<int[]> it = list.iterator();
-//        while (it.hasNext()) {
-//            for (int number : it.next()) {
-//                result.add(number);
-//            }
-//        }
-        return result;
+        return list.stream().flatMapToInt(Arrays::stream).boxed().collect(Collectors.toList());
     }
 }
