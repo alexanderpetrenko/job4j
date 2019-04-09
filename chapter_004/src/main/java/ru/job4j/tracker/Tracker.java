@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The {@code Tracker} class provides a storage of bids and operations with them.
@@ -82,13 +83,9 @@ public class Tracker {
      * @return An array of the found Items.
      */
     public List<Item> findByName(String key) {
-        ArrayList<Item> result = new ArrayList<>();
-        for (Item item : items) {
-            if (item.getName().equals(key)) {
-                result.add(item);
-            }
-        }
-        return result;
+        return items.stream()
+                .filter(item -> item.getName().equals(key))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -98,14 +95,9 @@ public class Tracker {
      * @return found Item; otherwise the method returns null.
      */
     public Item findById(String id) {
-        Item result = null;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                result = item;
-                break;
-            }
-        }
-        return result;
+        return items.stream()
+                .filter(item -> item.getId().equals(id))
+                .findFirst().orElse(null);
     }
 
     /**
