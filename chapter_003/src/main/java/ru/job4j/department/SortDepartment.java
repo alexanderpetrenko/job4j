@@ -16,7 +16,7 @@ public class SortDepartment {
      * @param codes Input Array of department codes.
      * @return Sorted Array of department codes.
      */
-    public String[] sortAscending(String[] codes) {
+    public Set<String> sortAsc(List<String> codes) {
         Set<String> result = new TreeSet<>(
                 new Comparator<String>() {
                     @Override
@@ -28,7 +28,7 @@ public class SortDepartment {
         for (String code : codes) {
             result.addAll(addAbsent(code));
         }
-        return result.toArray(new String[0]);
+        return result;
     }
 
     /**
@@ -37,7 +37,7 @@ public class SortDepartment {
      * @param codes Input Array of department codes.
      * @return Sorted Array of department codes.
      */
-    public String[] sortDescending(String[] codes) {
+    public Set<String> sortDesc(List<String> codes) {
         Set<String> result = new TreeSet<>(
                 new Comparator<String>() {
                     @Override
@@ -57,7 +57,7 @@ public class SortDepartment {
         for (String code : codes) {
             result.addAll(addAbsent(code));
         }
-        return result.toArray(new String[0]);
+        return result;
     }
 
     /**

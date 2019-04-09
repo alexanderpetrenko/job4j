@@ -2,8 +2,7 @@ package ru.job4j.department;
 
 import org.junit.Test;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -43,7 +42,7 @@ public class SortDepartmentTest {
                 "K2\\SK1\\SSK2"
         };
         SortDepartment departments = new SortDepartment();
-        assertThat(departments.sortAscending(codes), is(expected));
+        assertThat(departments.sortAsc(Arrays.asList(codes)), is(new TreeSet<String>(Arrays.asList(expected))));
     }
 
     /**
@@ -73,7 +72,7 @@ public class SortDepartmentTest {
                 "K1\\SK1\\SSK1"
         };
         SortDepartment departments = new SortDepartment();
-        assertThat(departments.sortDescending(codes), is(expected));
+        assertThat(departments.sortDesc(Arrays.asList(codes)), is(new TreeSet<String>(Arrays.asList(expected))));
     }
 
     /**
