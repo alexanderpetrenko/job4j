@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  *
  * @author Alexander Petrenko (Lexer8@gmail.com)
  * @version 1.0
- * @since 19.03.2019
+ * @since 09.04.2019
  */
 public class SortUser {
     /**
