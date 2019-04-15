@@ -24,7 +24,7 @@ public class ConvertMatrix2ListTest {
                 {3, 4}
         };
         List<Integer> expect = Arrays.asList(1, 2, 3, 4);
-        List<Integer> result = list.ArraytoList(input);
+        List<Integer> result = list.arrayToList(input);
         assertThat(result, is(expect));
     }
 
