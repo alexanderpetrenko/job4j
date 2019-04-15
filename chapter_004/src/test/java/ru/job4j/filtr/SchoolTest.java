@@ -2,9 +2,7 @@ package ru.job4j.filtr;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -66,5 +64,21 @@ public class SchoolTest {
         expected.add(new Student("Sidorov", 70));
         expected.add(new Student("Petrenko", 100));
         assertThat(result, is(expected));
+    }
+
+    @Test
+    public void whenStudentsCollectToMap() {
+        List<Student> students = new ArrayList<>(
+                Arrays.asList(
+                        new Student("Ivanov", 30),
+                        new Student("Petrov", 50),
+                        new Student("Sidorov", 70)
+                )
+        );
+        Map<String, Student> expected = new HashMap<>();
+        expected.put("Ivanov", new Student("Ivanov", 30));
+        expected.put("Petrov", new Student("Petrov", 50));
+        expected.put("Sidorov", new Student("Sidorov", 70));
+        assertThat(new School().toMap(students), is(expected));
     }
 }
