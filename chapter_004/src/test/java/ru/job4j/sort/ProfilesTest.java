@@ -15,6 +15,8 @@ public class ProfilesTest {
         List<Profile> customers = new ArrayList<>(
                 Arrays.asList(
                         new Profile(new Address("London", "Baker street", 221, 1)),
+                        new Profile(new Address("London", "Baker street", 221, 1)),
+                        new Profile(new Address("Moscow", "Stroiteley", 25, 12)),
                         new Profile(new Address("Moscow", "Stroiteley", 25, 12)),
                         new Profile(new Address("Leningrad", "Stroiteley", 25, 12))
                 )
@@ -22,6 +24,8 @@ public class ProfilesTest {
         List<Address> expected = new ArrayList<>(
                 Arrays.asList(
                         new Address("London", "Baker street", 221, 1),
+                        new Address("London", "Baker street", 221, 1),
+                        new Address("Moscow", "Stroiteley", 25, 12),
                         new Address("Moscow", "Stroiteley", 25, 12),
                         new Address("Leningrad", "Stroiteley", 25, 12)
                 )
