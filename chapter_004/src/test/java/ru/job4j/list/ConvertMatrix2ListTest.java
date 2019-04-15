@@ -24,7 +24,19 @@ public class ConvertMatrix2ListTest {
                 {3, 4}
         };
         List<Integer> expect = Arrays.asList(1, 2, 3, 4);
-        List<Integer> result = list.toList(input);
+        List<Integer> result = list.ArraytoList(input);
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void when2on2MatrixThenList4() {
+        ConvertMatrix2List list = new ConvertMatrix2List();
+        List<List<Integer>> matrix = List.of(
+                List.of(1, 2),
+                List.of(3, 4)
+        );
+        List<Integer> expect = Arrays.asList(1, 2, 3, 4);
+        List<Integer> result = list.matrixToList(matrix);
         assertThat(result, is(expect));
     }
 }

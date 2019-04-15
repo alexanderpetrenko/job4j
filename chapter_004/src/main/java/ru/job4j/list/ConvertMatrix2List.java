@@ -13,9 +13,13 @@ import java.util.stream.Collectors;
  * @since 09.04.2019
  */
 public class ConvertMatrix2List {
-    public List<Integer> toList(int[][] array) {
+    public List<Integer> ArraytoList(int[][] array) {
         return Arrays.stream(array)
                 .flatMapToInt(Arrays::stream).boxed()
                 .collect(Collectors.toList());
+    }
+
+    public List<Integer> matrixToList(List<List<Integer>> matrix) {
+        return matrix.stream().flatMap(List::stream).collect(Collectors.toList());
     }
 }
