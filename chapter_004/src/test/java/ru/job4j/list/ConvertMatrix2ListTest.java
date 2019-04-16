@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
  *
  * @author Alexander Petrenko (Lexer8@gmail.com)
  * @version 1.0
- * @since 09.04.2019
+ * @since 16.04.2019
  */
 public class ConvertMatrix2ListTest {
     @Test

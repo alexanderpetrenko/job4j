@@ -9,6 +9,13 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * The testing class for the {@code Profiles} class.
+ *
+ * @author Alexander Petrenko (Lexer8@gmail.com)
+ * @version 1.0
+ * @since 16.04.2019
+ */
 public class ProfilesTest {
     @Test
     public void whenProfilesListThenAddressList() {
