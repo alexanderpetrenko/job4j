@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author Alexander Petrenko (Lexer8@gmail.com)
  * @version 1.0
- * @since 24.03.2019
+ * @since 07.05.2019
  */
 public class Bank {
     private final Map<User, List<Account>> userAccounts = new HashMap<>();
@@ -40,6 +40,10 @@ public class Bank {
      * @param account  Object of a new User's account.
      */
     public void addAccountToUser(String passport, Account account) {
+//        this.userAccounts.entrySet().stream()
+//                .filter(userListEntry -> userListEntry.getKey().getPassport().equals(passport))
+//                .findFirst()
+//                .map(user -> user.getValue().add(account));
         List<Account> accounts = getUserAccounts(passport);
         if (accounts.indexOf(account) == -1) {
             accounts.add(account);
@@ -54,11 +58,9 @@ public class Bank {
      * @param account  Object of a existing User's account.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        List<Account> accounts = getUserAccounts(passport);
-        if (accounts.indexOf(account) != -1) {
-            accounts.remove(account);
-            this.userAccounts.put(getUserByPassport(passport), accounts);
-        }
+        this.userAccounts.entrySet().stream()
+                .filter(userListEntry -> userListEntry.getKey().getPassport().equals(passport))
+                .forEach(user -> user.getValue().remove(account));
     }
 
     /**
@@ -83,14 +85,9 @@ public class Bank {
      * @return Object of User.
      */
     private User getUserByPassport(String passport) {
-        User found = null;
-        for (Map.Entry<User, List<Account>> entry : this.userAccounts.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                found = entry.getKey();
-                break;
-            }
-        }
-        return found;
+        return this.userAccounts.entrySet().stream()
+                .filter(userListEntry -> userListEntry.getKey().getPassport().equals(passport))
+                .findFirst().map(Map.Entry::getKey).orElse(null);
     }
 
     /**
@@ -101,14 +98,9 @@ public class Bank {
      * @return An Object of User's banking Account.
      */
     private Account getAccountByRequisite(String requisite, List<Account> accounts) {
-        Account found = null;
-        for (Account account : accounts) {
-            if (account.getRequisites().equals(requisite)) {
-                found = account;
-                break;
-            }
-        }
-        return found;
+        return accounts.stream()
+                .filter(account -> account.getRequisites().equals(requisite))
+                .findFirst().orElse(null);
     }
 
     /**
