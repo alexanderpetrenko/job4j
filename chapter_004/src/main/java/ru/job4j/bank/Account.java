@@ -1,11 +1,13 @@
 package ru.job4j.bank;
 
+import java.util.Objects;
+
 /**
  * The {@code Account} class saves an information about User's Banking Account.
  *
  * @author Alexander Petrenko (Lexer8@gmail.com)
  * @version 1.0
- * @since 24.03.2019
+ * @since 08.05.2019
  */
 public class Account {
     private double value;
@@ -32,5 +34,23 @@ public class Account {
             success = true;
         }
         return success;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Account account = (Account) o;
+        return Double.compare(account.value, value) == 0
+                && requisites.equals(account.requisites);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, requisites);
     }
 }

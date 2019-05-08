@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author Alexander Petrenko (Lexer8@gmail.com)
  * @version 1.0
- * @since 07.05.2019
+ * @since 08.05.2019
  */
 public class Bank {
     private final Map<User, List<Account>> userAccounts = new HashMap<>();
@@ -40,15 +40,15 @@ public class Bank {
      * @param account  Object of a new User's account.
      */
     public void addAccountToUser(String passport, Account account) {
-//        this.userAccounts.entrySet().stream()
-//                .filter(userListEntry -> userListEntry.getKey().getPassport().equals(passport))
-//                .findFirst()
-//                .map(user -> user.getValue().add(account));
-        List<Account> accounts = getUserAccounts(passport);
-        if (accounts.indexOf(account) == -1) {
-            accounts.add(account);
-            this.userAccounts.put(getUserByPassport(passport), accounts);
-        }
+        this.userAccounts.entrySet().stream()
+                .filter(userListEntry -> userListEntry.getKey().getPassport().equals(passport))
+                .findFirst()
+                .map(user -> {
+                    if (!user.getValue().contains(account)) {
+                        user.getValue().add(account);
+                    }
+                    return user;
+                });
     }
 
     /**
