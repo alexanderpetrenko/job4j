@@ -5,6 +5,9 @@ import ru.job4j.chess.exceptions.OccupiedWayException;
 import ru.job4j.chess.figures.Cell;
 import ru.job4j.chess.figures.Figure;
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 /**
  * The {@code Logic} class describes the logic of the chess game.
  *
@@ -45,24 +48,29 @@ public class Logic {
     }
 
     private int findBy(Cell cell) {
-        int rst = -1;
-        for (int index = 0; index != this.figures.length; index++) {
-            if (this.figures[index] != null && this.figures[index].position().equals(cell)) {
-                rst = index;
-                break;
-            }
-        }
-        return rst;
+        return IntStream.range(0, figures.length)
+                .filter(i -> figures[i] != null && figures[i].position().equals(cell))
+                .findFirst().orElse(-1);
+//        int rst = -1;
+//        for (int index = 0; index != this.figures.length; index++) {
+//            if (this.figures[index] != null && this.figures[index].position().equals(cell)) {
+//                rst = index;
+//                break;
+//            }
+//        }
+//        return rst;
     }
 
     private boolean isOccupied(Cell[] steps) {
-        boolean rst = false;
-        for (Cell step : steps) {
-            if (this.findBy(step) != -1) {
-                rst = true;
-                break;
-            }
-        }
-        return rst;
+        return Arrays.stream(steps)
+                .map(step -> this.findBy(step) != -1).findAny().orElse(false);
+//        boolean rst = false;
+//        for (Cell step : steps) {
+//            if (this.findBy(step) != -1) {
+//                rst = true;
+//                break;
+//            }
+//        }
+//        return rst;
     }
 }
