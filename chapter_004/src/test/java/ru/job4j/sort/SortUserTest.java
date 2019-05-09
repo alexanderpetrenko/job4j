@@ -20,23 +20,17 @@ public class SortUserTest {
      */
     @Test
     public void whenListThenSortedTreeSet() {
-        List<User> users = new ArrayList<>();
-        users.addAll(
-                Arrays.asList(
-                        new User("stark", 35),
-                        new User("willis", 64),
-                        new User("bond", 50),
-                        new User("stark", 60)
-                )
+        List<User> users = List.of(
+                new User("stark", 35),
+                new User("willis", 64),
+                new User("bond", 50),
+                new User("stark", 60)
         );
-        Set<User> expected = new TreeSet<>();
-        expected.addAll(
-                Arrays.asList(
-                        new User("stark", 35),
-                        new User("stark", 60),
-                        new User("bond", 50),
-                        new User("willis", 64)
-                )
+        Set<User> expected = Set.of(
+                new User("stark", 35),
+                new User("stark", 60),
+                new User("bond", 50),
+                new User("willis", 64)
         );
         SortUser sorting = new SortUser();
         Set<User> result = sorting.sort(users);
@@ -48,23 +42,17 @@ public class SortUserTest {
      */
     @Test
     public void whenListThenSortByNameLength() {
-        List<User> users = new ArrayList<>();
-        users.addAll(
-                Arrays.asList(
-                        new User("stark", 35),
-                        new User("willis", 64),
-                        new User("bond", 50),
-                        new User("CJ", 60)
-                )
+        List<User> users = List.of(
+                new User("stark", 35),
+                new User("willis", 64),
+                new User("bond", 50),
+                new User("CJ", 60)
         );
-        List<User> expected = new ArrayList<>();
-        expected.addAll(
-                Arrays.asList(
-                        new User("CJ", 60),
-                        new User("bond", 50),
-                        new User("stark", 35),
-                        new User("willis", 64)
-                )
+        List<User> expected = List.of(
+                new User("CJ", 60),
+                new User("bond", 50),
+                new User("stark", 35),
+                new User("willis", 64)
         );
         SortUser sorting = new SortUser();
         List<User> result = sorting.sortNameLength(users);
@@ -76,23 +64,17 @@ public class SortUserTest {
      */
     @Test
     public void whenListThenSortByAllFields() {
-        List<User> users = new ArrayList<>();
-        users.addAll(
-                Arrays.asList(
-                        new User("Сергей", 25),
-                        new User("Иван", 30),
-                        new User("Сергей", 20),
-                        new User("Иван", 25)
-                )
+        List<User> users = List.of(
+                new User("Сергей", 25),
+                new User("Иван", 30),
+                new User("Сергей", 20),
+                new User("Иван", 25)
         );
-        List<User> expected = new ArrayList<>();
-        expected.addAll(
-                Arrays.asList(
-                        new User("Иван", 25),
-                        new User("Иван", 30),
-                        new User("Сергей", 20),
-                        new User("Сергей", 25)
-                )
+        List<User> expected = List.of(
+                new User("Иван", 25),
+                new User("Иван", 30),
+                new User("Сергей", 20),
+                new User("Сергей", 25)
         );
         SortUser sorting = new SortUser();
         List<User> result = sorting.sortByAllFields(users);
@@ -101,23 +83,17 @@ public class SortUserTest {
 
     @Test
     public void whenListThenSortByNameAge() {
-        List<User> users = new ArrayList<>();
-        users.addAll(
-                Arrays.asList(
-                        new User("Сергей", 25),
-                        new User("Иван", 30),
-                        new User("Сергей", 20),
-                        new User("Иван", 25)
-                )
+        List<User> users = List.of(
+                new User("Сергей", 25),
+                new User("Иван", 30),
+                new User("Сергей", 20),
+                new User("Иван", 25)
         );
-        List<User> expected = new ArrayList<>();
-        expected.addAll(
-                Arrays.asList(
-                        new User("Иван", 25),
-                        new User("Иван", 30),
-                        new User("Сергей", 20),
-                        new User("Сергей", 25)
-                )
+        List<User> expected = List.of(
+                new User("Иван", 25),
+                new User("Иван", 30),
+                new User("Сергей", 20),
+                new User("Сергей", 25)
         );
         SortUser sorting = new SortUser();
         List<User> result = sorting.sortByNameThenAge(users);

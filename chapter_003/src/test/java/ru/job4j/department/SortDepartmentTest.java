@@ -42,7 +42,7 @@ public class SortDepartmentTest {
                 "K2\\SK1\\SSK2"
         };
         SortDepartment departments = new SortDepartment();
-        assertThat(departments.sortAsc(Arrays.asList(codes)), is(new TreeSet<String>(Arrays.asList(expected))));
+        assertThat(departments.sortAsc(List.of(codes)), is(new TreeSet<>(List.of(expected))));
     }
 
     /**
@@ -72,7 +72,7 @@ public class SortDepartmentTest {
                 "K1\\SK1\\SSK1"
         };
         SortDepartment departments = new SortDepartment();
-        assertThat(departments.sortDesc(Arrays.asList(codes)), is(new TreeSet<String>(Arrays.asList(expected))));
+        assertThat(departments.sortDesc(List.of(codes)), is(new TreeSet<>(List.of(expected))));
     }
 
     /**
@@ -83,10 +83,7 @@ public class SortDepartmentTest {
     public void whenDepsNameThenAddAbsentDepsToList() {
         SortDepartment departments = new SortDepartment();
         String input = "k1\\sk1\\ssk1";
-        List<String> expected = new LinkedList<>();
-        expected.add("k1");
-        expected.add("k1\\sk1");
-        expected.add("k1\\sk1\\ssk1");
+        List<String> expected = List.of("k1", "k1\\sk1", "k1\\sk1\\ssk1");
         assertThat(departments.addAbsent(input), is(expected));
     }
 }

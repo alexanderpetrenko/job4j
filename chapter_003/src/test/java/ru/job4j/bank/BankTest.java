@@ -2,8 +2,6 @@ package ru.job4j.bank;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -57,9 +55,7 @@ public class BankTest {
         bank.addAccountToUser(user.getPassport(), userAccount1);
         bank.addAccountToUser(user.getPassport(), userAccount2);
         bank.addAccountToUser(user.getPassport(), userAccount3);
-        List<Account> expected = new ArrayList<>(
-                Arrays.asList(userAccount1, userAccount2, userAccount3)
-        );
+        List<Account> expected = List.of(userAccount1, userAccount2, userAccount3);
         assertThat(bank.getUserAccounts(user.getPassport()), is(expected));
     }
 
@@ -74,14 +70,10 @@ public class BankTest {
         bank.addAccountToUser(user.getPassport(), userAccount1);
         bank.addAccountToUser(user.getPassport(), userAccount2);
         bank.addAccountToUser(user.getPassport(), userAccount3);
-        List<Account> expected1 = new ArrayList<>(
-                Arrays.asList(userAccount1, userAccount2, userAccount3)
-        );
+        List<Account> expected1 = List.of(userAccount1, userAccount2, userAccount3);
         assertThat(bank.getUserAccounts(user.getPassport()), is(expected1));
         bank.deleteAccountFromUser(user.getPassport(), userAccount2);
-        List<Account> expected2 = new ArrayList<>(
-                Arrays.asList(userAccount1, userAccount3)
-        );
+        List<Account> expected2 = List.of(userAccount1, userAccount3);
         assertThat(bank.getUserAccounts(user.getPassport()), is(expected2));
     }
 
