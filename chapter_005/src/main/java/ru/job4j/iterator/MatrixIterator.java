@@ -1,6 +1,5 @@
 package ru.job4j.iterator;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -12,28 +11,27 @@ import java.util.Iterator;
  */
 public class MatrixIterator implements Iterator {
     private final int[][] values;
-    private int size;
     private int i = 0;
     private int j = 0;
-    private int count = 0;
 
     public MatrixIterator(int[][] array) {
         this.values = array;
-        this.size = (int) Arrays.stream(array).flatMapToInt(Arrays::stream).count();
     }
 
     @Override
     public boolean hasNext() {
-        return count < size;
+        return i < values.length && j < values[i].length;
     }
 
     @Override
     public Object next() {
-        count++;
-        if (j == values[i].length) {
+        int result = values[i][j];
+        if (j < values[i].length - 1) {
+            j++;
+        } else {
             i++;
             j = 0;
         }
-        return values[i][j++];
+        return result;
     }
 }
