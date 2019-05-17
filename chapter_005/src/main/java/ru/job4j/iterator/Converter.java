@@ -18,8 +18,13 @@ public class Converter {
 
             @Override
             public boolean hasNext() {
-                if (!this.current.hasNext() && iterators.hasNext()) {
-                    current = iterators.next();
+                if (!this.current.hasNext()) {
+                    while (iterators.hasNext()) {
+                        current = iterators.next();
+                        if (current.hasNext()) {
+                            break;
+                        }
+                    }
                 }
                 return this.current.hasNext();
             }
