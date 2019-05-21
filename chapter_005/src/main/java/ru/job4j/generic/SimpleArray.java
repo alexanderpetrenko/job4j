@@ -1,6 +1,5 @@
 package ru.job4j.generic;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -37,11 +36,11 @@ public class SimpleArray<T> implements Iterable<T> {
      *
      * @param model A new array element.
      */
-    public void add(T model) {
-        if (index > objects.length - 1) {
+    public void add(T model) throws ArrayIndexOutOfBoundsException {
+        if (this.index == objects.length) {
             throw new ArrayIndexOutOfBoundsException("There are too many elements in array");
         }
-        this.objects[index++] = model;
+        this.objects[this.index++] = model;
     }
 
     /**
@@ -50,9 +49,9 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param position Position of changing array element.
      * @param model    A new element value.
      */
-    public void set(int position, T model) {
-        if (position >= objects.length || position < 0) {
-            throw new ArrayIndexOutOfBoundsException("Input Index is out of bounds");
+    public void set(int position, T model) throws NoSuchElementException {
+        if (position >= this.index || position < 0) {
+            throw new NoSuchElementException("Requested array element does not exist");
         }
         this.objects[position] = model;
     }
@@ -62,12 +61,12 @@ public class SimpleArray<T> implements Iterable<T> {
      *
      * @param position Position of deleting array element.
      */
-    public void remove(int position) {
-        if (position >= objects.length || position < 0) {
-            throw new ArrayIndexOutOfBoundsException("Such element does not exist");
+    public void remove(int position) throws NoSuchElementException {
+        if (position >= this.index || position < 0) {
+            throw new NoSuchElementException("Requested array element does not exist");
         }
-        System.arraycopy(objects, position + 1, objects, position, this.objects.length - 1 - position);
-        objects = Arrays.copyOf(objects, this.objects.length - 1);
+        System.arraycopy(this.objects, position + 1, this.objects, position, this.index - 1 - position);
+        this.index--;
     }
 
     /**
@@ -77,7 +76,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @return Value of array element.
      */
     public T get(int position) {
-        if (position >= objects.length || position < 0) {
+        if (position >= this.index || position < 0) {
             throw new ArrayIndexOutOfBoundsException("Input Index is out of bounds");
         }
         return (T) this.objects[position];
@@ -89,7 +88,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @return quantity of all array elements
      */
     public int length() {
-        return this.objects.length;
+        return this.index;
     }
 
     /**
@@ -104,7 +103,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return this.index < objects.length;
+                return this.index < SimpleArray.this.index;
             }
 
             @Override

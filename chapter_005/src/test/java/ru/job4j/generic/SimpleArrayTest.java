@@ -3,6 +3,7 @@ package ru.job4j.generic;
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -16,8 +17,12 @@ import static org.junit.Assert.assertThat;
  */
 public class SimpleArrayTest {
     @Test
-    public void whenCreateArrayOf4ElementsThen4() {
-        SimpleArray<Integer> array = new SimpleArray<>(4);
+    public void whenAdd4ElementsToArrayThenLength4() {
+        SimpleArray<Integer> array = new SimpleArray<>(20);
+        array.add(1);
+        array.add(2);
+        array.add(3);
+        array.add(4);
         assertThat(array.length(), is(4));
     }
 
@@ -28,7 +33,7 @@ public class SimpleArrayTest {
         strings.add("User");
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test(expected = NoSuchElementException.class)
     public void whenSetElementOutOfArrayBoundsThenException() {
         SimpleArray<Double> doubles = new SimpleArray<>(2);
         doubles.add(3.1416);
@@ -36,7 +41,7 @@ public class SimpleArrayTest {
         doubles.set(123, 6.022);
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test(expected = NoSuchElementException.class)
     public void whenRemoveNotExistingElementThenException() {
         SimpleArray<Double> doubles = new SimpleArray<>(2);
         doubles.add(3.1416);
@@ -75,5 +80,12 @@ public class SimpleArrayTest {
         while (it.hasNext()) {
             assertThat(it.next(), is(expected[i++]));
         }
+    }
+
+    @Test
+    public void whenArrayHasNoElementsThenIteratorHasNextFalse() {
+        SimpleArray objects = new SimpleArray(20);
+        Iterator it = objects.iterator();
+        assertThat(it.hasNext(), is(false));
     }
 }
