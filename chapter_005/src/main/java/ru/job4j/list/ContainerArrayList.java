@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * {@code Simple Array List} creates a dynamic array of data.
+ * {@code Container Array List} creates a dynamic array of data.
  *
  * @param <E> A reference type of array elements.
  * @author Alexander Petrenko (Lexer8@gmail.com)
