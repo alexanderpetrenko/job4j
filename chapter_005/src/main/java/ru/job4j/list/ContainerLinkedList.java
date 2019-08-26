@@ -78,11 +78,13 @@ public class ContainerLinkedList<E> implements SimpleContainer<E> {
     public Iterator<E> iterator() {
         return new Iterator<>() {
             private final int expectedModCount = ContainerLinkedList.this.modCount;
-            private int index = 0;
+//            private int index = 0;
+            private Node<E> current = ContainerLinkedList.this.first;
 
             @Override
             public boolean hasNext() {
-                return this.index < ContainerLinkedList.this.size;
+//                return this.index < ContainerLinkedList.this.size;
+                return current.next != null;
             }
 
             @Override
@@ -93,7 +95,10 @@ public class ContainerLinkedList<E> implements SimpleContainer<E> {
                 if (this.expectedModCount != ContainerLinkedList.this.modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return ContainerLinkedList.this.get(this.index++);
+//                return ContainerLinkedList.this.get(this.index++);
+                E result = current.data;
+                current = current.next;
+                return result;
             }
         };
     }
