@@ -58,15 +58,22 @@ public class ContainerArrayList<E> implements SimpleContainer<E> {
     }
 
     /**
+     * Grows the capacity of the List if it is full.
+     */
+    private void sizeUp() {
+        if (this.position == container.length) {
+            container = Arrays.copyOf(container, container.length * 2);
+        }
+    }
+
+    /**
      * Appends the specified element to the end of this list.
      *
      * @param value element to be appended to this list.
      */
     @Override
     public void add(E value) {
-        if (this.position == container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
-        }
+        this.sizeUp();
         container[position++] = value;
         this.modCount++;
     }
