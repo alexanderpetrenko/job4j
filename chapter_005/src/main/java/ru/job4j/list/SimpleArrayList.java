@@ -41,10 +41,11 @@ public class SimpleArrayList<E> {
         if (size == 0) {
             throw new NoSuchElementException("The Array List is empty");
         }
-        E result = this.first.data;
-        this.first = this.first.next;
+        Node<E> deletedNode = this.first;
+        this.first = deletedNode.next;
+        deletedNode.next = null;
         this.size--;
-        return result;
+        return deletedNode.data;
     }
 
     /**
