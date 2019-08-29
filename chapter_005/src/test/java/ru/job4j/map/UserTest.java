@@ -28,4 +28,15 @@ public class UserTest {
         System.out.println(map);
         assertThat(map.size(), is(2));
     }
+
+    @Test
+    public void whenHashCodeOverrideThen2UsersWithSameHashCodeAddToMap() {
+        UserHashCode first = new UserHashCode("Petrenko", 0, new GregorianCalendar(1990, Calendar.FEBRUARY, 27));
+        UserHashCode second = new UserHashCode("Petrenko", 0, new GregorianCalendar(1990, Calendar.FEBRUARY, 27));
+        Map<UserHashCode, Object> map = new HashMap<>();
+        map.put(first, new Object());
+        map.put(second, new Object());
+        System.out.println(map);
+        assertThat(map.size(), is(2));
+    }
 }
