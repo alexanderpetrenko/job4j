@@ -23,12 +23,16 @@ public class UserEqualsHash {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         UserEqualsHash that = (UserEqualsHash) o;
-        return children == that.children &&
-                name.equals(that.name) &&
-                birthday.equals(that.birthday);
+        return children == that.children
+                && name.equals(that.name)
+                && birthday.equals(that.birthday);
     }
 
     @Override
