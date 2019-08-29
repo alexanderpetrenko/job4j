@@ -39,4 +39,15 @@ public class UserTest {
         System.out.println(map);
         assertThat(map.size(), is(2));
     }
+
+    @Test
+    public void whenEqualsOverrideThen2UsersAddToMap() {
+        UserEquals first = new UserEquals("Petrenko", 0, new GregorianCalendar(1990, Calendar.FEBRUARY, 27));
+        UserEquals second = new UserEquals("Petrenko", 0, new GregorianCalendar(1990, Calendar.FEBRUARY, 27));
+        Map<UserEquals, Object> map = new HashMap<>();
+        map.put(first, new Object());
+        map.put(second, new Object());
+        System.out.println(map);
+        assertThat(map.size(), is(2));
+    }
 }
