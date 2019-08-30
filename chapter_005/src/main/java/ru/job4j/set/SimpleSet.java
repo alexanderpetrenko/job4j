@@ -13,11 +13,7 @@ import java.util.Iterator;
  * @since 27.08.2019
  */
 public class SimpleSet<E> implements Iterable<E> {
-    private final ContainerArrayList<E> list;
-
-    public SimpleSet() {
-        this.list = new ContainerArrayList<>();
-    }
+    private final ContainerArrayList<E> list = new ContainerArrayList<>();
 
     /**
      * Checks the uniqueness of the element in the set.
