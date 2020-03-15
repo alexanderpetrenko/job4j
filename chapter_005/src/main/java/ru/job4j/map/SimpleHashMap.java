@@ -19,6 +19,7 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
 
     private static final int DEFAULT_SIZE = 8;
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
+    private static final int MAX_ARRAY_SIZE = 512;
 
     private Node<?, ?>[] table;
     private float loadFactor;
@@ -47,7 +48,15 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
 
     private void resize() {
         if (this.quantity >= this.table.length * this.loadFactor) {
-            this.table = Arrays.copyOf(this.table, this.table.length * 2);
+            if (this.table.length == MAX_ARRAY_SIZE) {
+                return;
+            }
+            int newCapacity = this.table.length * 2;
+            if (newCapacity < MAX_ARRAY_SIZE) {
+                this.table = Arrays.copyOf(this.table, newCapacity);
+            } else {
+                this.table = Arrays.copyOf(this.table, MAX_ARRAY_SIZE);
+            }
         }
     }
 
@@ -72,7 +81,7 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
     }
 
     @Override
-//    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public V get(K key) {
         V result = null;
         int i = this.index(key);
@@ -130,6 +139,7 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public V next() throws NoSuchElementException, ConcurrentModificationException {
                 if (this.expectedModCount != SimpleHashMap.this.modCount) {
                     throw new ConcurrentModificationException();
