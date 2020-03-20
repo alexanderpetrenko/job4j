@@ -6,7 +6,6 @@ import java.util.*;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -24,11 +23,9 @@ public class SimpleHashMapTest {
         User secondKey = new User("Petrenko", 0, new GregorianCalendar(1990, Calendar.FEBRUARY, 27));
         String secondValue = "Second User";
         SimpleHashMap<User, String> map = new SimpleHashMap<>();
-        assertThat(map.insert(firstKey, firstValue), is(true));
-        assertThat(map.insert(secondKey, secondValue), is(true));
+        map.insert(firstKey, firstValue);
+        map.insert(secondKey, secondValue);
         assertThat(map.length(), is(2));
-        assertThat(map.get(firstKey), is(firstValue));
-        assertThat(map.get(secondKey), is(secondValue));
     }
 
     @Test
@@ -42,7 +39,15 @@ public class SimpleHashMapTest {
         assertThat(map.insert(secondKey, secondValue), is(false));
         assertThat(map.length(), is(1));
         assertThat(map.get(firstKey), is(firstValue));
-        assertThat(map.get(secondKey), nullValue());
+        assertThat(map.get(secondKey), is(firstValue));
+    }
+
+    @Test
+    public void whenAddNullKeyThenZeroIndex() {
+        SimpleHashMap<Object, String> map = new SimpleHashMap<>();
+        String value = "Value of null key";
+        map.insert(null, value);
+        assertThat(map.get(null), is(value));
     }
 
     @Test
@@ -66,6 +71,17 @@ public class SimpleHashMapTest {
         assertThat(map.length(), is(0));
     }
 
+    @Test
+    public void whenDeleteNonexistentKeyThenFalse() {
+        String key = "key";
+        String value = "Test value";
+        SimpleHashMap<String, String> map = new SimpleHashMap<>();
+        assertThat(map.insert(key, value), is(true));
+        assertThat(map.length(), is(1));
+        assertThat(map.delete("nonexistent"), is(false));
+        assertThat(map.length(), is(1));
+    }
+
     @Test(expected = NoSuchElementException.class)
     public void whenAdd5ElementsThenGetThemByIterator() {
         SimpleHashMap<Integer, String> map = new SimpleHashMap<>();
@@ -78,7 +94,6 @@ public class SimpleHashMapTest {
         while (it.hasNext()) {
             assertThat(it.next(), is("User" + i++));
         }
-        assertThat(it.hasNext(), is(false));
         it.next();
     }
 

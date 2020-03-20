@@ -1,6 +1,5 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -16,30 +15,52 @@ import java.util.NoSuchElementException;
  * @since 13.03.2020
  */
 public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
-
+    /**
+     * Default quantity of key-value mappings.
+     */
     private static final int DEFAULT_SIZE = 8;
+    /**
+     * Default value of a load factor.
+     */
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
+    /**
+     * The maximum size of array to allocate.
+     */
     private static final int MAX_ARRAY_SIZE = 512;
-
+    /**
+     * The hash table data.
+     */
     private Node<?, ?>[] table;
+    /**
+     * The load factor for the hashtable.
+     */
     private float loadFactor;
-
-    private int quantity;
-
+    /**
+     * The number of key-value mappings contained in this map.
+     */
+    private int count;
+    /**
+     * The next size value at which to resize (capacity * load factor).
+     */
+    private int threshold;
+    /**
+     * The number of times this HashMap has been structurally modified.
+     */
     private int modCount;
 
     public SimpleHashMap() {
         this(DEFAULT_SIZE);
     }
 
-    public SimpleHashMap(int size) {
-        this(size, DEFAULT_LOAD_FACTOR);
+    public SimpleHashMap(int initialCapacity) {
+        this(initialCapacity, DEFAULT_LOAD_FACTOR);
     }
 
-    public SimpleHashMap(int size, float loadFactor) {
-        this.table = new Node[size];
+    public SimpleHashMap(int initialCapacity, float loadFactor) {
+        this.table = new Node[initialCapacity];
         this.loadFactor = loadFactor;
         this.modCount = 0;
+        this.threshold = (int) Math.min(initialCapacity * loadFactor, MAX_ARRAY_SIZE);
     }
 
     private int index(K key) {
@@ -47,33 +68,45 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
     }
 
     private void resize() {
-        if (this.quantity >= this.table.length * this.loadFactor) {
-            if (this.table.length == MAX_ARRAY_SIZE) {
+        int oldCapacity = this.table.length;
+        Node<?, ?>[] oldMap = this.table;
+        int newCapacity = oldCapacity * 2;
+        if (newCapacity > MAX_ARRAY_SIZE) {
+            if (oldCapacity == MAX_ARRAY_SIZE) {
+                // Keep running with MAX_ARRAY_SIZE buckets
                 return;
             }
-            int newCapacity = this.table.length * 2;
-            if (newCapacity < MAX_ARRAY_SIZE) {
-                this.table = Arrays.copyOf(this.table, newCapacity);
-            } else {
-                this.table = Arrays.copyOf(this.table, MAX_ARRAY_SIZE);
+            newCapacity = MAX_ARRAY_SIZE;
+        }
+        this.modCount++;
+        this.threshold = (int) Math.min(newCapacity * this.loadFactor, MAX_ARRAY_SIZE);
+        Node<?, ?>[] newMap = new Node[newCapacity];
+        this.table = newMap;
+        for (int i = 0; i < oldCapacity; i++) {
+            if (oldMap[i] != null) {
+                @SuppressWarnings("unchecked")
+                int index = this.index((K) oldMap[i].key);
+                newMap[index] = oldMap[i];
             }
         }
     }
 
     public int length() {
-        return this.quantity;
+        return this.count;
     }
 
     @Override
     public boolean insert(K key, V value) {
         boolean result;
-        this.resize();
+        if (this.count >= this.threshold) {
+            this.resize();
+        }
         int i = index(key);
         if (table[i] != null) {
             result = false;
         } else {
             table[i] = new Node<>(key, value);
-            this.quantity++;
+            this.count++;
             this.modCount++;
             result = true;
         }
@@ -86,9 +119,7 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
         V result = null;
         int i = this.index(key);
         if (i < this.table.length && i >= 0) {
-            if (this.table[i].key.equals(key)) {
-                result = (V) this.table[i].value;
-            }
+            result = (V) this.table[i].value;
         }
         return result;
     }
@@ -100,7 +131,7 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
             result = false;
         } else {
             this.table[this.index(key)] = null;
-            this.quantity--;
+            this.count--;
             this.modCount++;
             result = true;
         }
@@ -130,12 +161,12 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
     public Iterator<V> iterator() {
         return new Iterator<>() {
             private final int expectedModCount = SimpleHashMap.this.modCount;
-            private int quantity = SimpleHashMap.this.quantity;
+            private int count = SimpleHashMap.this.count;
             private int index = 0;
 
             @Override
             public boolean hasNext() {
-                return this.quantity > 0;
+                return this.count > 0;
             }
 
             @Override
@@ -151,7 +182,7 @@ public class SimpleHashMap<K, V> implements BaseHashMap<K, V> {
                 while (index < SimpleHashMap.this.table.length) {
                     if (SimpleHashMap.this.table[index] != null) {
                         result = (V) SimpleHashMap.this.table[index++].value;
-                        this.quantity--;
+                        this.count--;
                         break;
                     } else {
                         index++;
